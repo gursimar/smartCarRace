@@ -1,0 +1,98 @@
+/******************************************************************************
+Copyright (c) Freescale Semiconductor 2006
+File Name		 :	$RCSfile: xgate_XPWM.cxgate,v $
+Current Revision :	$Revision: 1.10 $
+Notes            :  
+*******************************************************************************/
+#include "per_XDx512_L15Y.h"
+
+#pragma CODE_SEG XGATE_CODE
+#pragma DATA_SEG XGATE_DATA
+
+
+/******************************************************************************
+PWM initialisation
+Array PWM_Channels consists of record of structure type tPWMChDescr
+For each required PWM channel, identify the relevant port address and pin,
+the PWM period and duty cycle, and the starting position
+
+******************************************************************************/
+
+typedef struct {
+	tU08 *port;
+	tU08 period;
+	tU08 cntr;
+	tU08 duty;
+  tU08 bit_mask;
+} tPWMChDescr;
+
+tPWMChDescr PWM_Channels[]={
+/* 1*/    {(unsigned char *)(&PORTA.byte),200,31,  2,0x01},
+/* 2*/    {(unsigned char *)(&PORTA.byte),200,30,  1,0x02},
+/* 3*/    {(unsigned char *)(&PORTA.byte),200,29,  0,0x04},
+/* 4*/    {(unsigned char *)(&PORTA.byte),200,28,200,0x08},
+/* 5*/    {(unsigned char *)(&PORTA.byte),200,27,199,0x10},
+/* 6*/    {(unsigned char *)(&PORTA.byte),200,26,195,0x20},
+/* 7*/    {(unsigned char *)(&PORTA.byte),200,25,190,0x40},
+/* 8*/    {(unsigned char *)(&PORTA.byte),200,24,185,0x80}, 
+/* 9*/    {(unsigned char *)(&PORTB.byte),200,23,180,0x01}
+};
+                            
+tPWMChDescr* current_chp;                            
+
+/******************************************************************************
+Function Name	:	XGATE_PWM_PIT
+Parameters		:	None
+Returns			:	None
+Notes			:	PWM algorithm implementation
+******************************************************************************/
+void interrupt XGATE_PWM_PIT(void) 
+{                                 
+  PIT.pittf.byte = PTF2;	        // Clear interrupt flag 
+ 
+  current_chp=&PWM_Channels[(sizeof(PWM_Channels)/sizeof(tPWMChDescr))-1]; // Load new PWM configuration 
+  
+  while (current_chp>=&PWM_Channels[0]) // for all channels...
+  {	
+    if(current_chp->cntr==0)            // if period is over...
+    {
+        current_chp->cntr=current_chp->period;							 // Reload new period information
+        if(current_chp->cntr==current_chp->duty)             // if duty (switch on point) has been reached (to achieve real 100% duty cycles)
+          *(current_chp->port)|=current_chp->bit_mask;   // switch channel on by write a one to corresponding pin
+   		  else
+          *(current_chp->port)&=~current_chp->bit_mask; // ...switch channel off
+    } 
+    else 
+    {
+      if(current_chp->cntr==current_chp->duty)             // if duty (switch on point) has been reached
+        *(current_chp->port)|=current_chp->bit_mask;   // switch channel on by write a one to the corresponding pin
+    }
+    current_chp->cntr--;          								  			 // increase counter which represents position within period for each channel
+    current_chp--;  											                 // next channel please                                           
+  }
+}
+
+/******************************************************************************
+Function Name	:	XGATE_PWM_INIT
+Parameters		:	None
+Returns			:	None
+Notes			:	XGATE Initialisation for PWM - ports and PIT
+******************************************************************************/
+void interrupt XGATE_PWM_INIT (void)
+{
+  DDRA.byte = 0xFF;             // Set to output for PWM channels
+  DDRB.byte = 0x01;             // Set to output for PWM channels
+//  DDRC.byte = 0xFF;             // Set to output for PWM channels
+//  DDRD.byte = 0xFF;             // Set to output for PWM channels
+
+  PIT.pitce.bit.pce2 = 1;				              // Enable PIT channel 2 
+	PIT.pitmtld1.byte = 0;				              // Divide by 1 
+	PIT.pitmux.bit.pmux2 = 1;                   // Assign PIT channel 2 to microtimer 1  
+  PIT.pitld2.word = 1320-1;		                // 150Hz @ 0.5% -> 33us/25ns   = 1320 
+	PIT.pitcflmt.byte = PITE | PITFRZ | PFLMT1;	// Enable the PIT module and force reload of the micro counter 
+	PIT.pitflt.bit.pflt2 = 1;			              // Force reload of counter 2     
+  PIT.pitinte.bit.pinte2 = 1;		              // Enable interrupts from channel 2 
+
+  /* Clear interrupt flag */
+  XGATE.xgswt.word = 0x01fe;
+}

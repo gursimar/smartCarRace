@@ -1,0 +1,185 @@
+From: "Saved by Windows Internet Explorer 8"
+Subject: Lab 6 - Exploring the Servomotor Controller Circuit
+Date: Mon, 21 Jun 2010 19:27:43 +0530
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_007F_01CB1177.D23F5F20"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.1.7600.16385
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_007F_01CB1177.D23F5F20
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://people.ee.duke.edu/~cec/final/node57.html
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!Converted with LaTeX2HTML 95 (Thu Jan 19 1995) by Nikos Drakos =
+(nikos@cbl.leeds.ac.uk), CBLU, University of Leeds =
+><HTML><HEAD><TITLE>Lab 6 - Exploring the Servomotor Controller =
+Circuit</TITLE>
+<META content=3D"text/html; charset=3Diso-8859-1" =
+http-equiv=3DContent-Type>
+<META name=3DGENERATOR content=3D"MSHTML 8.00.7600.16490"></HEAD>
+<BODY>
+<META name=3Ddescription=20
+value=3D" Lab 6 - Exploring the Servomotor Controller Circuit">
+<META name=3Dkeywords value=3D"final">
+<META name=3Dresource-type value=3D"document">
+<META name=3Ddistribution value=3D"global">
+<P><BR>
+<HR>
+<A href=3D"http://people.ee.duke.edu/~cec/final/node58.html" =
+name=3Dtex2html948><IMG=20
+alt=3Dnext align=3Dbottom=20
+src=3D"http://www.ee.duke.edu/~cec/icons/next_motif.gif"></A> <A=20
+href=3D"http://people.ee.duke.edu/~cec/final/final.html" =
+name=3Dtex2html946><IMG=20
+alt=3Dup align=3Dbottom =
+src=3D"http://www.ee.duke.edu/~cec/icons/up_motif.gif"></A> <A=20
+href=3D"http://people.ee.duke.edu/~cec/final/node56.html" =
+name=3Dtex2html940><IMG=20
+alt=3Dprevious align=3Dbottom=20
+src=3D"http://www.ee.duke.edu/~cec/icons/previous_motif.gif"></A> <A=20
+href=3D"http://people.ee.duke.edu/~cec/final/node1.html" =
+name=3Dtex2html950><IMG=20
+alt=3Dcontents align=3Dbottom=20
+src=3D"http://www.ee.duke.edu/~cec/icons/contents_motif.gif"></A> =
+<BR><B>Next:</B>=20
+<A href=3D"http://people.ee.duke.edu/~cec/final/node58.html"=20
+name=3Dtex2html949>Purpose</A> <B>Up:</B> <A=20
+href=3D"http://people.ee.duke.edu/~cec/final/final.html" =
+name=3Dtex2html947>EE 61=20
+Lab Manual</A> <B>Previous:</B> <A=20
+href=3D"http://people.ee.duke.edu/~cec/final/node56.html"=20
+name=3Dtex2html941>Questions</A> <BR>
+<HR>
+
+<P>
+<H1><A name=3DSECTION00800000000000000000>Lab 6 - Exploring the =
+Servomotor=20
+Controller Circuit</A></H1>
+<P><BR>
+<HR>
+
+<UL>
+  <LI><A=20
+  =
+href=3D"http://people.ee.duke.edu/~cec/final/node58.html#SECTION008100000=
+00000000000"=20
+  name=3Dtex2html951>Purpose</A>=20
+  <LI><A=20
+  =
+href=3D"http://people.ee.duke.edu/~cec/final/node59.html#SECTION008200000=
+00000000000"=20
+  name=3Dtex2html952>Servomotor</A>=20
+  <LI><A=20
+  =
+href=3D"http://people.ee.duke.edu/~cec/final/node60.html#SECTION008300000=
+00000000000"=20
+  name=3Dtex2html953>Components of the Servomotor Controller Circuit</A> =
+
+  <UL>
+    <LI><A=20
+    =
+href=3D"http://people.ee.duke.edu/~cec/final/node61.html#SECTION008310000=
+00000000000"=20
+    name=3Dtex2html954>555 Timer</A>=20
+    <LI><A=20
+    =
+href=3D"http://people.ee.duke.edu/~cec/final/node62.html#SECTION008320000=
+00000000000"=20
+    name=3Dtex2html955>J-K Flip Flop</A>=20
+    <LI><A=20
+    =
+href=3D"http://people.ee.duke.edu/~cec/final/node63.html#SECTION008330000=
+00000000000"=20
+    name=3Dtex2html956>Comparator 1: Used as a Level Shifter</A>=20
+    <LI><A=20
+    =
+href=3D"http://people.ee.duke.edu/~cec/final/node64.html#SECTION008340000=
+00000000000"=20
+    name=3Dtex2html957>Integrator</A>=20
+    <LI><A=20
+    =
+href=3D"http://people.ee.duke.edu/~cec/final/node65.html#SECTION008350000=
+00000000000"=20
+    name=3Dtex2html958>Comparator 2</A> </LI></UL>
+  <LI><A=20
+  =
+href=3D"http://people.ee.duke.edu/~cec/final/node66.html#SECTION008400000=
+00000000000"=20
+  name=3Dtex2html959>Experimental Procedure</A>=20
+  <UL>
+    <LI><A=20
+    =
+href=3D"http://people.ee.duke.edu/~cec/final/node67.html#SECTION008410000=
+00000000000"=20
+    name=3Dtex2html960>Setup</A>=20
+    <LI><A=20
+    =
+href=3D"http://people.ee.duke.edu/~cec/final/node68.html#SECTION008420000=
+00000000000"=20
+    name=3Dtex2html961>Black Box: Input and Output</A>=20
+    <LI><A=20
+    =
+href=3D"http://people.ee.duke.edu/~cec/final/node69.html#SECTION008430000=
+00000000000"=20
+    name=3Dtex2html962>Signal Analysis</A> </LI></UL>
+  <LI><A=20
+  =
+href=3D"http://people.ee.duke.edu/~cec/final/node70.html#SECTION008500000=
+00000000000"=20
+  name=3Dtex2html963>PSpice</A>=20
+  <LI><A=20
+  =
+href=3D"http://people.ee.duke.edu/~cec/final/node71.html#SECTION008600000=
+00000000000"=20
+  name=3Dtex2html964>Questions</A> </LI></UL><BR>
+<HR>
+
+<P>
+<ADDRESS>cec@ee.duke.edu </ADDRESS></BODY></HTML>
+
+------=_NextPart_000_007F_01CB1177.D23F5F20
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ee.duke.edu/~cec/icons/next_motif.gif
+
+R0lGODlhJQAYAPEAAL+/v+fn529vb1sAACH5BAEAAAAALAAAAAAlABgAAAJ9jI+py+2/hAG02ovz
+FTLoD2LcFJbf6Jnq1lUD9q5iSw2xKwM3gOL7btr1ajrLzWYj+pKUYfH5/CmPFmeMeTVOcRUr94pk
+6qRdGrSYzYjPXp/ykmabgWJqlNucw39Y7bhMkqPiJFhCWAhyiKihuDhjwBEpOUlZaRlgmamZWQAA
+Ow==
+
+------=_NextPart_000_007F_01CB1177.D23F5F20
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ee.duke.edu/~cec/icons/up_motif.gif
+
+R0lGODlhGgAYAPEAAL+/v+fn529vb1sAACH5BAEAAAAALAAAAAAaABgAAAJijI+py61igJy0WiBg
+uPzm2IXSt4khOQ2WemrpKqISS9GcDNjzPvQUrsvNWDYgTPgauXYVYm1ibDKn0SeSupxefVdMdsjl
+hb0gUVBZDp3JJfPta7Lg4nJN5o7P6/GBvf8vUAAAOw==
+
+------=_NextPart_000_007F_01CB1177.D23F5F20
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ee.duke.edu/~cec/icons/previous_motif.gif
+
+R0lGODlhPwAYAPEAAL+/v+fn529vb1sAACH5BAEAAAAALAAAAAA/ABgAAAKtjI+py+0Po5xJGICz
+3rz7D2qCFYTmiX7jlbYuuJbvTANxNuR6jQ28SMJpcr8i5tbb+Iw/JGApfEp7u6kQqsMOqcSME/pc
+dq1TrVUcTYKh36w5GTWj41swkEXe4tzwct9/NeYV9KdXeEWX+FdlQ5iX9qimCHjI5mgHeWaoyRlG
+ZomHWSn4uSe4I8bYiMfUOsjq2uoUK+tIyzR7WxQz0uv7CxwsPEwcHFCMnKyMXAAAOw==
+
+------=_NextPart_000_007F_01CB1177.D23F5F20
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ee.duke.edu/~cec/icons/contents_motif.gif
+
+R0lGODlhQQAYAPEAAL+/v+fn529vb1sAACH5BAEAAAAALAAAAABBABgAAAKyjI+py+0Po5xNGICz
+3rz7D3KCFYTmiYbjlbauuZbvTGfxNuRDzX93lgPOdi+ij6QxYpQoZlOFXIJ0xp1uGcRmAdbslfvF
+/LhTKVZINpu3xHbSFk13lG509S1P10VxJ3qNV0W1p6fFx5KHE7iohgeYtDWWSEip5kfX+CfJxphX
++fiIKRanxUT1p0fHadcWBiDZEwsCK1u7QWubi5tbu8sbGzMiPExcbHyMnIwcoNzs/PxcAAA7
+
+------=_NextPart_000_007F_01CB1177.D23F5F20--

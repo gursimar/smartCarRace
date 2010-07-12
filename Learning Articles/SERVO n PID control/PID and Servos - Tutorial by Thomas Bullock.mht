@@ -1,0 +1,2351 @@
+From: "Saved by Windows Internet Explorer 8"
+Subject: PID and Servos - Tutorial by Thomas Bullock
+Date: Fri, 25 Jun 2010 16:55:52 +0530
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01CB1487.454A5170"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.1.7600.16385
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/pid.asp
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>PID and Servos - Tutorial by Thomas Bullock</TITLE>
+<META name=3Ddescription=20
+content=3D"Popular tutorial discusses PID conceptually and practically.  =
+By Tom Bullock.">
+<META content=3D"text/html; charset=3Diso-8859-1" =
+http-equiv=3DContent-Type>
+<META content=3Dno-cache http-equiv=3DPragma>
+<STYLE>.t0i {
+	BACKGROUND-COLOR: #ffffff; FONT-FAMILY: Tahoma, Verdana, Geneva, Arial, =
+Helvetica, sans-serif; VISIBILITY: visible; COLOR: #000000; FONT-SIZE: =
+11px
+}
+.m0l0a {
+	BACKGROUND-COLOR: #ffffff; FONT-FAMILY: Tahoma, Verdana, Geneva, Arial, =
+Helvetica, sans-serif; VISIBILITY: visible; COLOR: #3366cc; FONT-SIZE: =
+11px
+}
+.m0l1a {
+	BACKGROUND-COLOR: #ffffff; FONT-FAMILY: Tahoma, Verdana, Geneva, Arial, =
+Helvetica, sans-serif; VISIBILITY: visible; COLOR: #3366cc; FONT-SIZE: =
+11px
+}
+.m0l2a {
+	BACKGROUND-COLOR: #ffffff; FONT-FAMILY: Tahoma, Verdana, Geneva, Arial, =
+Helvetica, sans-serif; VISIBILITY: visible; COLOR: #3366cc; FONT-SIZE: =
+11px
+}
+.t0im {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; WIDTH: 19px; HEIGHT: 16px; =
+VISIBILITY: visible; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+#nolinks {
+	COLOR: #000000; CURSOR: default; TEXT-DECORATION: none
+}
+.hideit {
+	VISIBILITY: hidden
+}
+.shown {
+	VISIBILITY: visible
+}
+</STYLE>
+
+<SCRIPT language=3DJavaScript=20
+src=3D"http://www.ctc-control.com/customer/navfix.js"></SCRIPT>
+<LINK rel=3Dstylesheet type=3Dtext/css =
+href=3D"http://www.ctc-control.com/ctc3.css">
+<META name=3DGENERATOR content=3D"MSHTML 8.00.7600.16490"></HEAD>
+<BODY leftMargin=3D0 topMargin=3D0 bgColor=3D#ffffff marginwidth=3D"0" =
+marginheight=3D"0"><!-- DO NOT MOVE! The following AllWebMenus linking =
+code section must always be placed right AFTER the BODY tag--><!-- =
+******** BEGIN ALLWEBMENUS CODE FOR topbanner ******** -->
+<SCRIPT type=3Dtext/javascript>var MenuLinkedBy=3D"AllWebMenus =
+[4]",awmMenuName=3D"topbanner",awmBN=3D"734";awmAltUrl=3D"";</SCRIPT>
+
+<SCRIPT type=3Dtext/javascript charset=3DUTF-8=20
+src=3D"http://www.ctc-control.com/topbanner.js"></SCRIPT>
+
+<SCRIPT type=3Dtext/javascript>awmBuildMenu();</SCRIPT>
+<!-- ******** END ALLWEBMENUS CODE FOR topbanner ******** -->
+<TABLE border=3D0 cellSpacing=3D0 cellPadding=3D0 width=3D760><!-- =
+fwtable fwsrc=3D"newBanner3.png" fwbase=3D"newBanner3.gif" =
+fwstyle=3D"Dreamweaver" fwdocid =3D "1526390511" fwnested=3D"0" -->
+  <TBODY>
+  <TR>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D150 height=3D1></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D120 height=3D1></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D120 height=3D1></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D120 height=3D1></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D120 height=3D1></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D70 height=3D1></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D50 height=3D1></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D10 height=3D1></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D1 height=3D1></TD></TR>
+  <TR>
+    <TD rowSpan=3D3><A =
+href=3D"http://www.ctc-control.com/index.asp"><IMG border=3D0=20
+      name=3DnewBanner3_r1_c1 alt=3D"CTC Home Page"=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/newBanner=
+3_r1_c1.gif"=20
+      width=3D150 height=3D43></A></TD>
+    <TD colSpan=3D7><IMG border=3D0 name=3DnewBanner3_r1_c2 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/newBanner=
+3_r1_c2.gif"=20
+      width=3D610 height=3D12></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D1 height=3D12></TD></TR>
+  <TR>
+    <TD rowSpan=3D2 colSpan=3D5><IMG border=3D0 name=3DnewBanner3_r2_c2 =
+alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/newBanner=
+3_r2_c2.gif"=20
+      width=3D550 height=3D31></TD>
+    <TD><A href=3D"http://www.ctc-control.com/search.asp"><IMG =
+border=3D0=20
+      name=3DnewBanner3_r2_c7 alt=3Dsearch=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/newBanner=
+3_r2_c7.gif"=20
+      width=3D50 height=3D22></A></TD>
+    <TD rowSpan=3D4><IMG border=3D0 name=3DnewBanner3_r2_c8 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/newBanner=
+3_r2_c8.gif"=20
+      width=3D10 height=3D63></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D1 height=3D22></TD></TR>
+  <TR>
+    <TD><IMG border=3D0 name=3DnewBanner3_r3_c7 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/newBanner=
+3_r3_c7.gif"=20
+      width=3D50 height=3D9></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D1 height=3D9></TD></TR>
+  <TR>
+    <TD><IMG border=3D0 name=3DnewBanner3_r4_c1 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/newBanner=
+3_r4_c1.gif"=20
+      width=3D150 height=3D30></TD>
+    <TD><IMG border=3D0 name=3Dproducts alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/products.=
+gif"=20
+      width=3D120 height=3D30></TD>
+    <TD><IMG border=3D0 name=3Dcompany alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/company.g=
+if"=20
+      width=3D120 height=3D30></TD>
+    <TD><IMG border=3D0 name=3Dsupport alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/support.g=
+if"=20
+      width=3D120 height=3D30></TD>
+    <TD><IMG border=3D0 name=3DcontactUs alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/contactUs=
+.gif"=20
+      width=3D120 height=3D30></TD>
+    <TD colSpan=3D2><IMG border=3D0 name=3Dnews alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/news.gif"=
+=20
+      width=3D120 height=3D30></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D1 height=3D30></TD></TR>
+  <TR>
+    <TD colSpan=3D7><IMG border=3D0 name=3DnewBanner3_r5_c1 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/newBanner=
+3_r5_c1.gif"=20
+      width=3D750 height=3D2></TD>
+    <TD><IMG border=3D0 alt=3D""=20
+      =
+src=3D"http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gi=
+f"=20
+      width=3D1 height=3D2></TD></TR></TBODY></TABLE><!-- begin outer =
+container for bottom half of page -->
+<TABLE border=3D0 cellSpacing=3D0 cellPadding=3D0 width=3D760><!-- =
+bracer row -->
+  <TBODY>
+  <TR>
+    <TD height=3D6 width=3D145><IMG=20
+      src=3D"http://www.ctc-control.com/newWebimages/spacer.gif" =
+width=3D145=20
+      height=3D5></TD>
+    <TD height=3D6 width=3D5><IMG=20
+      src=3D"http://www.ctc-control.com/newWebimages/spacer.gif" =
+width=3D5=20
+    height=3D5></TD>
+    <TD height=3D6 width=3D610><IMG=20
+      src=3D"http://www.ctc-control.com/newWebimages/spacer.gif" =
+width=3D610=20
+      height=3D5></TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D145>
+      <SCRIPT language=3DJavaScript=20
+      src=3D"http://www.ctc-control.com/customer/tree.js"></SCRIPT>
+
+      <SCRIPT language=3DJavaScript=20
+      =
+src=3D"http://www.ctc-control.com/customer/treecust_items.js"></SCRIPT>
+
+      <SCRIPT language=3DJavaScript=20
+      src=3D"http://www.ctc-control.com/customer/tree_tpl2.js"></SCRIPT>
+
+      <DIV class=3Dshown name=3D"sidebar1">
+      <SCRIPT language=3DJavaScript>
+new tree (TREE_ITEMS, tree_tpl);
+</SCRIPT>
+      </DIV>
+      <DIV class=3Dhideit name=3D"sidebar2">
+      <TABLE border=3D0 cellSpacing=3D0 cellPadding=3D2 width=3D145>
+        <TBODY>
+        <TR>
+          <TD class=3Dwhiteheadsm bgColor=3D#3366cc width=3D145 =
+align=3Dmiddle>GENERAL=20
+            INFO</TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"online request =
+form"=20
+            href=3D"http://www.ctc-control.com/inq.asp">catalog request =
+</A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A=20
+            title=3D"data sheets and documentation"=20
+            =
+href=3D"http://www.ctc-control.com/customer/techinfo/idxdocs5100.asp">dat=
+asheets</A></TD></TR>
+        <TR>
+          <TD class=3Dwhiteheadsm bgColor=3D#3366cc width=3D145=20
+            align=3Dmiddle>E-LEARNING CENTER</TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"e-learning center =
+main page"=20
+            =
+href=3D"http://www.ctc-control.com/customer/elearning/idxelearning.asp">e=
+-learning=20
+            center </A></TD></TR>
+        <TR>
+          <TD class=3Dblueheadsm width=3D145>documentation:</TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"5100 tech and =
+sales info"=20
+            =
+href=3D"http://www.ctc-control.com/customer/techinfo/idxdocs5100.asp">510=
+0=20
+            </A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"2700 tech and =
+sales info"=20
+            =
+href=3D"http://www.ctc-control.com/customer/techinfo/idxdocs2700.asp">270=
+0=20
+            </A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"26xx tech and =
+sales info"=20
+            =
+href=3D"http://www.ctc-control.com/customer/techinfo/idxdocsmisc.asp#26xx=
+">26xx=20
+            </A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"MultiPro tech and =
+sales info"=20
+            =
+href=3D"http://www.ctc-control.com/customer/techinfo/idxdocsmisc.asp#mult=
+ipro">MultiPro=20
+            </A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A=20
+            title=3D"Quickstep, user interfaces, programming guides"=20
+            =
+href=3D"http://www.ctc-control.com/customer/techinfo/idxdocsmisc.asp#ugui=
+des">software=20
+            and peripherals </A></TD></TR>
+        <TR>
+          <TD width=3D145><IMG hspace=3D2 vspace=3D5=20
+            =
+src=3D"http://www.ctc-control.com/newWebimages/bluespace.gif"=20
+            width=3D135 height=3D1></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"tech notes"=20
+            =
+href=3D"http://www.ctc-control.com/customer/techinfo/idxtnotes.asp">tech =
+
+            notes</A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"frequently asked =
+questions"=20
+            =
+href=3D"http://www.ctc-control.com/customer/techinfo/FAQs.asp">FAQs</A></=
+TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A=20
+            title=3D"hardware dimensions and dxf files"=20
+            =
+href=3D"http://www.ctc-control.com/customer/idxspecs.asp">dimensions=20
+            and drawings</A></TD></TR>
+        <TR>
+          <TD class=3Dwhiteheadsm bgColor=3D#3366cc width=3D145=20
+            align=3Dmiddle>DOWNLOADS</TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3Ddownloads=20
+            =
+href=3D"http://www.ctc-control.com/customer/idxdownloads.asp">downloads</=
+A></TD></TR>
+        <TR>
+          <TD class=3Dwhiteheadsm bgColor=3D#3366cc width=3D145 =
+align=3Dmiddle>AGENCY=20
+            APPROVALS</TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A=20
+            title=3D"5100 EC and other agency approvals"=20
+            =
+href=3D"http://www.ctc-control.com/customer/5100aa.asp">5100</A>=20
+</TD></TR>
+        <TR>
+          <TD class=3Dwhiteheadsm bgColor=3D#3366cc width=3D145 =
+align=3Dmiddle>TECH=20
+            SUPPORT</TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A=20
+            title=3D"installation, user and reference guides"=20
+            =
+href=3D"http://www.ctc-control.com/customer/idxcustomer.asp">main=20
+            page</A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"contact us"=20
+            href=3D"http://www.ctc-control.com/company/contact.asp">CTC=20
+            contacts</A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"find local =
+distributor"=20
+            =
+href=3D"http://www.ctc-control.com/customer/distributor/distrmap.asp">dis=
+tributor=20
+            locator</A></TD></TR>
+        <TR>
+          <TD class=3Dbodytext width=3D145><A title=3D"wty./non-wty. =
+repair policy"=20
+            href=3D"http://www.ctc-control.com/customer/rma.asp">RMA=20
+        page</A></TD></TR></TBODY></TABLE></DIV></TD>
+    <TD vAlign=3Dtop width=3D5><IMG=20
+      src=3D"http://www.ctc-control.com/newWebimages/spacer.gif" =
+width=3D5=20
+    height=3D1></TD>
+    <TD vAlign=3Dtop width=3D610><SPAN class=3Dbluehead1>Customer Care=20
+      </SPAN><BR><SPAN class=3Dbluehead>E-Learning Center</SPAN><BR><IMG =
+vspace=3D5=20
+      src=3D"http://www.ctc-control.com/newWebimages/bluespace.gif" =
+width=3D250=20
+      height=3D3><BR><SPAN class=3Dgreenheadsm>PID and =
+Servos</SPAN><BR><BR>
+      <ADDRESS class=3Dbodyital>By <A=20
+      =
+href=3D"http://www.ctc-control.com/customer/elearning/servotut/tbullock.a=
+sp">Thomas=20
+      B. Bullock </A>, <A=20
+      =
+href=3D"http://www.ctc-control.com/customer/elearning/servotut/icc.asp">I=
+ndustrial=20
+      Controls Consulting</A>, a division of Bull's Eye Research, Inc., =
+Fond du=20
+      Lac, Wis. </ADDRESS>
+      <HR color=3D#3366cc SIZE=3D3 width=3D"90%" noShade>
+
+      <P class=3Dbodytext>PID is an acronym that gets used more and more =
+as=20
+      factory automation requires ever better performance from =
+processes,=20
+      machines and motion control. There exists a great deal of =
+misunderstanding=20
+      about it. This article will talk about PID conceptually and =
+practically so=20
+      that a clearer understanding may prevail.</P>
+      <P class=3Dbodytext>To begin with, PID means <B>P</B>roportional,=20
+      <B>I</B>ntegral and <B>D</B>ifferential. It probably should have =
+been=20
+      called IPD rather than PID because the Integral term is most =
+effective at=20
+      low frequencies, the Proportional term at moderate frequencies, =
+and the=20
+      Differential term at higher frequencies. These frequencies are =
+relative to=20
+      the bandwidth of the servo or process.</P>
+      <P class=3Dbodytext>PID has been much more common in process =
+control where=20
+      temperatures, pressures, etc. need to be optimally controlled. The =
+primary=20
+      benefit from the Integral term is the reduction of steady state =
+error=20
+      while the Differential term helps improve the responsiveness and=20
+      stability. The theory is valid whether one is controlling =
+temperature,=20
+      pressure or position. A big difference between a typical process =
+closed=20
+      loop and a typical position closed loop is the dynamics or =
+frequency=20
+      response. It is not unusual for a positioning servo to have a =
+bandwidth of=20
+      10 Hz or for a process loop to have a bandwidth of 0.1 Hz. Control =
+of=20
+      temperature, pressure, etc. is usually a "slower" process than =
+positioning=20
+      with motors.</P>
+      <P class=3Dbodytext>In order to discuss the effects of PID, it is =
+necessary=20
+      to look at a basic closed loop servo and the equation for its =
+closed loop=20
+      response. This was discussed in detail on page 39 of the =
+September/October=20
+      1990 issue of <CITE>Motion Control</CITE>. The block diagram and =
+the=20
+      response formula are repeated here for your convenience: </P>
+      <P class=3Dbodytext><BR><IMG align=3Dbottom=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/bod=
+e2.gif"=20
+      width=3D346 height=3D171> </P>
+      <P class=3Dbodytext>It is also important that one visualizes this =
+equation=20
+      by viewing the Bode diagram. Bode diagrams were discussed on page =
+45 of=20
+      the January 1991 issue of <CITE>Motion Control</CITE>. A Bode =
+diagram is=20
+      simply a plot of the open loop (A) and closed loop A/(1 +A) =
+responses of=20
+      the servo in relation to frequency. A Bode diagram is shown below, =
+again=20
+      for your convenience.</P>
+      <P class=3Dbodytext><BR><IMG align=3Dbottom=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/pid=
+-2.gif"=20
+      width=3D338 height=3D182> </P>
+      <P class=3Dbodytext>Remember that A/(1 +A) is approximately equal =
+to 1 when=20
+      A is large and to A when A is small - as shown on the diagram =
+above.</P>
+      <H2 class=3Dbluehead>Integral Term </H2>
+      <P class=3Dbodytext>Let's discuss why one might want to introduce =
+an=20
+      Integral factor into the gain (A) of the control. The Bode diagram =
+shows A=20
+      approaching infinity as the frequency approaches zero. =
+Theoretically, it=20
+      does go to infinity at DC because if one put a small error into an =
+open=20
+      loop drive/motor combination to cause it to move, it would =
+continue to=20
+      move forever (the position would get larger and larger). This is =
+why a=20
+      motor is classified as an integrator itself - it integrates the =
+small=20
+      position error. If one closes the loop, this has the effect of =
+driving the=20
+      error to zero since any error will eventually cause motion in the =
+proper=20
+      direction to bring F into coincidence with C. The system will only =
+come to=20
+      rest when the error is precisely zero! The theory sounds great, =
+but in=20
+      actual practice the error does not go to zero. In order to cause =
+the motor=20
+      to move, the error is amplified and generates a torque in the =
+motor. When=20
+      friction is present, that torque must be large enough to overcome =
+that=20
+      friction. The motor stops acting as an integrator at the point =
+where the=20
+      error is just below the point required to induce sufficient torque =
+to=20
+      break friction. The system will sit there with that error and =
+torque, but=20
+      will not move.</P>
+      <P class=3Dbodytext>One can introduce another Integrator (the =
+motor being=20
+      the first one) at the error point which recognizes and acts upon =
+the least=20
+      significant increment of the error. As long as an error exists, it =
+will=20
+      integrate (continually sum) that error (within certain limits) =
+until=20
+      motion takes place. A second Integrator shows up on a Bode diagram =
+with a=20
+      plot of gain (A') that has twice the slope previously shown. In =
+the Bode=20
+      diagram previously shown which has a bandwidth of 10 rad/sec., the =
+double=20
+      slope would result, for instance, in a gain of 10,000 at 0.1 =
+rad/sec.=20
+      instead of the 100. This means that the low frequency dynamics are =
+
+      dramatically improved in addition to the error being greatly =
+reduced.</P>
+      <H2 class=3Dbluehead>Proportional Term </H2>
+      <P class=3Dbodytext>There is a big problem with A' having two =
+integrators,=20
+      however. As discussed in the January column, an integrator results =
+in its=20
+      output being 90=B0 phase lagged from its input. By putting two =
+integrators=20
+      in series, a 180=B0 phase lag results (expressed as A'<IMG =
+align=3Dbottom=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tsi=
+gn1.gif"=20
+      width=3D12 height=3D8>-180=B0). Under this condition, the closed =
+loop gain=20
+      becomes:</P>
+      <P class=3Dbodytext><BR><IMG align=3Dbottom=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tpi=
+def1.gif"=20
+      width=3D151 height=3D45> </P>
+      <P class=3Dbodytext>As A' approaches 1 on the Bode diagram (at 10 =
+rad/sec.=20
+      in the example), the denominator becomes 1 + 1 <IMG align=3Dbottom =
+
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tsi=
+gn1.gif"=20
+      width=3D12 height=3D8>-180=B0 =3D 1-1 =3D 0 and F/C becomes =
+infinite! This will=20
+      result in severe oscillations. In order to maintain a stable =
+system, the=20
+      denominator must not be allowed to approach 0. When the term =
+"phase=20
+      margin" is used, it expresses how close the phase shift of A' is =
+to -180=B0=20
+      when A' =3D 1 in magnitude. A commonly accepted design goal is for =
+A' to=20
+      have -135=B0 of phase shift or less (45=B0 of phase margin). This =
+will result=20
+      in a 25 percent overshoot of the closed loop system in response to =
+small=20
+      step inputs in position as shown below.</P>
+      <P class=3Dbodytext><BR><IMG align=3Dbottom=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/pid=
+3.gif"=20
+      width=3D360 height=3D202> </P>
+      <P class=3Dbodytext>As the phase margin gets larger, the amount =
+and number=20
+      of overshoots diminish. As the phase margin gets smaller, the =
+overshoots=20
+      get larger and will "ring" for longer periods until finally =
+constant=20
+      "ringing" or sustained oscillation will occur.</P>
+      <P class=3Dbodytext>In order to remain stable and limit the =
+overshoot=20
+      response to a step input, the second Integrator must be removed in =
+the=20
+      vicinity of A' =3D 1 or in the vicinity of 10 rad/sec. This will =
+allow the=20
+      phase to approach the -90=B0 associated with the single =
+integration of the=20
+      motor. Typically, the "break point" at which the Integrator would =
+be=20
+      removed would be about a factor of 10 from the bandwidth. In the =
+example,=20
+      the "break point" would be placed at 1 rad/sec. and for =
+frequencies above=20
+      that value, the compensation for the loop would revert from an =
+Integrator=20
+      to a Proportional or constant term. If this Proportional term =
+equals 1,=20
+      then the gain reverts back to A at frequencies above 1 rad/sec. =
+with only=20
+      the normal single integration caused by the motor.</P>
+      <P class=3Dbodytext>The methods for making an Integrator and =
+removing it=20
+      above a specific frequency value are covered in texts on digital =
+filtering=20
+      or analog filters depending on whether the servo error (E) is =
+digital or=20
+      analog.</P>
+      <H2 class=3Dbluehead>Differential Term </H2>
+      <P class=3Dbodytext>The Integral and Proportional terms have =
+provided a=20
+      system which is considerably more accurate and responsive at lower =
+
+      frequencies, yet stable based on the phase margin criterion near =
+servo=20
+      bandwidth frequencies. It may also be desirable to further improve =
+the=20
+      phase margin so that the bandwidth can be extended or the =
+overshoot of the=20
+      step response minimized.</P>
+      <P class=3Dbodytext>This is possible by introducing positive phase =
+to=20
+      improve the phase margin by means of a Differentiator. Earlier it =
+was=20
+      mentioned that an Integrator results in the output lagging the =
+input by 90=20
+      degrees. Conversely, a Differentiator has an output that leads the =
+input=20
+      by 90=B0. An Integrator, with frequency, takes the form of <IMG =
+align=3Dmiddle=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tpi=
+def2.gif"=20
+      width=3D90 height=3D19> with its gain decreasing with frequency =
+and its output=20
+      having a 90=B0 phase lag. A Differentiator takes the form <IMG =
+align=3Dmiddle=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tpi=
+def3.gif"=20
+      width=3D76 height=3D20> with its gain increasing with frequency, =
+but its=20
+      output having a 90=B0 phase lead. By designing the Differentiator =
+so that it=20
+      is effective for frequencies of 10 rad/sec. and above in the =
+example, the=20
+      phase lead will benefit the phase margin near the bandwidth =
+frequencies.=20
+      There is an undesirable effect from this, however. Since the=20
+      Differentiator causes the gain to increase with frequency, it also =
+
+      increases some of the machine resonances that will often be found =
+in the=20
+      100 to 1,000 rad/sec. range. For this reason, the Differentiator =
+is=20
+      usually "disengaged" back to Proportional at some midpoint between =
+the=20
+      servo bandwidth and the frequency of the first resonance.</P>
+      <H2 class=3Dbluehead>PID </H2>
+      <P class=3Dbodytext>A Bode diagram of the whole PID compensation =
+network=20
+      would be:</P>
+      <P class=3Dbodytext><IMG align=3Dbottom=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/pid=
+4.gif"=20
+      width=3D302 height=3D165> </P>
+      <P class=3Dbodytext>Combining this with the Bode diagram shown =
+earlier for=20
+      the "naked" loop illustrates that this PID compensation has =
+resulted in a=20
+      closed loop servo with a wider bandwidth and a greater gain (thus=20
+      accuracy) within that bandwidth.</P>
+      <P class=3Dbodytext><BR><IMG align=3Dbottom=20
+      =
+src=3D"http://www.ctc-control.com/customer/elearning/servotut/tut-pix/pid=
+5.gif"=20
+      width=3D346 height=3D190> </P>
+      <H2 class=3Dbluehead>Some Final Comments</H2>
+      <P class=3Dbodytext>PID is a relatively sophisticated compensation =
+technique=20
+      to improve the performance of a servo. A servo with a good =
+internal=20
+      velocity loop will provide many of the benefits of PID. If no =
+velocity=20
+      (tachometer) loop exists, PID should be considered. It is always =
+best to=20
+      keep designs simple and introduce complexity only when =
+necessary.</P>
+      <P class=3Dbodyital>This article originally appeared in =
+<CITE>Motion Control=20
+      Magazine</CITE>, March 1991.</P></TD></TR>
+  <TR>
+    <TD vAlign=3Dcenter colSpan=3D3 align=3Dmiddle><IMG vspace=3D5=20
+      src=3D"http://www.ctc-control.com/newWebimages/bluespace.gif" =
+width=3D740=20
+      height=3D2> <SPAN class=3Dbodytext><A=20
+      =
+href=3D"http://www.ctc-control.com/search.asp">search</A>&nbsp;&nbsp;<A=20
+      =
+href=3D"http://www.ctc-control.com/products/idxproducts.asp">products</A>=
+&nbsp;&nbsp;<A=20
+      =
+href=3D"http://www.ctc-control.com/company/idxcompany.asp">company</A>&nb=
+sp;&nbsp;<A=20
+      =
+href=3D"http://www.ctc-control.com/customer/idxcustomer.asp">customer=20
+      care</A>&nbsp;&nbsp;<A=20
+      href=3D"http://www.ctc-control.com/company/contact.asp">contact =
+us</A><BR><A=20
+      href=3D"http://www.ctc-control.com/sitemap.asp">site =
+map</A>&nbsp;&nbsp;<A=20
+      =
+href=3D"http://www.ctc-control.com/sales/idxsales.asp">partners</A>&nbsp;=
+&nbsp;<A=20
+      href=3D"http://www.ctc-control.com/press/index.asp">press=20
+      room</A><BR><BR><FONT size=3D1>Copyright =A9 2003 - 2010 Control =
+Technology=20
+      Corp. All Rights Reserved. <BR>Quickstep=99, QuickBuilder=99, Blue =
+Fusion=99,=20
+      CTServer=99, WebMon=99, iPanel=99, CT HMI=99, and CT webHMI=99 are =
+trademarks of=20
+      Control Technology Corp. Java and the Java Coffee Cup Logo are =
+trademarks=20
+      or registered trademarks of Sun Microsystems, Inc. in the U.S. and =
+other=20
+      countries. All other trademarks are the properties of their =
+respective=20
+      organizations.</FONT><BR></SPAN>
+      <HR align=3Dcenter SIZE=3D1 width=3D200 noShade>
+      <SPAN class=3Dbodytext><FONT size=3D1>Phone numbers:<BR>Sales =
+&amp; Order=20
+      Entry: 888.818.2600 Tech Support: 800.282.5008 Other: 508.435.9595 =
+Fax:=20
+      508.435.2373<BR>Address: 25 South Street, Hopkinton, MA=20
+      01748</FONT></SPAN><SPAN class=3Dbodytext><BR><BR>Last site update =
+June,=20
+      2010 </SPAN></TD></TR></TBODY></TABLE></BODY></HTML>
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/spacer.gif
+
+R0lGODlhAQABAIAAAP///wAAACH5BAEUAAAALAAAAAABAAEAAAICRAEAOw==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/newBanner3_r1_c1.gif
+
+R0lGODlhlgArANUAAAAAANni9Y2NjWZmZjMzMzNmzMTExGaM2RAQELa2tpmz5t/f30pKSkBwz3t7
+e/L1/KWlpSAgIM3Z8kJCQn+f37PG7O/v75mZmVmD1ubs+WZmZv///1paWggICBkZGYODg4yp4tfX
+11JSUr29vXKV3E150uXl5ff39yoqKnJycpmZma2traW86b/P7zo6OszMzPf3/9nj9oCg3wAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAHAP8ALAAAAACWACsAAAb/wI1w
+SCwaj8ikcslsOp/QqHRKrVqv2Kx2y+16kQ8JS0GWBL7otDqZAWEK8Di8QZGs73hthiLv9zF2eYKD
+TSx+h30kD4SMjRsPJIiScSVnjpdrD299JSASi0Jim3INlpinXQecFUoSqqSgqLJXComxSoZyB7O8
+VAF9MkVhYy0ZRRV9LUsLDCm9zxuvcCREew19B4FCyAUl2kgWBB0i0Ly/lLEt14ggRDKsSxYiHQDk
+5bIgcvAbLYcYMgoOlAgGZQC9evdklaA05MG6OAqMEZEgcYOJCwMmuODwYcSQEwMQABjpQoDJDx+K
+LMCoUUTHhF0yyGknpFacBjGUmBjgQeTI/5EIOpjY4MDnz6MuhizggMAoUAQWYGqRIEeZkIc4lbxg
+cPDoTwgXPHj1OkGIgQldvXpIIDWLTTgSz8HZhwTFWK8Q7N79WdZChL0j17bF8rbAEKpwSiwxeBSB
+ixQfRHjosGKEALF8TZq8sIFr48cfGCDwYGAwLTmH49BEciKthxUniCSIvUHvSA5FTDj14JHICtNX
+csEJJHOukhFOcSexDUD5kBVOBwDvgti4kE3fjFzo2gGCEubOhXxozHb6lgdyCG7gRlf7Ucrfj4bf
+IOCoYPNbRhWI9Ub9EehHObOcfEVA4JQD+G0hXAEKNFRCAzphFlhvSoUghAtHlSWECSeEIP8hAAi8
+UEQIFiYYhUNymPLAAQ0mIYJXCAxwAQQOEOBBSp01xhEHERCwwQRqpTBjjR4IYKIUhWFwS3YjEjBW
+B0bheIFTR/n4AnNP/WTkkVA8sFAcSj5hwIdj4XjCX3f5uAFygAGwJZdPVDcHk0rMkxaIHnAmhAUT
+kOmBcyeIEBSMEXgHJxTcyEECnRtkoAAJplw0AAMTMODACkMRcYIBDjDAAAcQlEjESpN6+kECmR4K
+xYKUgMCCBGIooB8Ft6jaSwUPTdJHA4zaekoM0ug6h1W+llOBfog0oECtRBGAwAQUSvFCWdNOYO0E
+IhqRgqFaafjEUghEMF8jMQTkxz/EFpH/AgIQjNDunkdAwG1UG9A7AgD1WubmCBbQS8QECC5xL7xM
++EVAZQLWe4S/ecDKrBEAJLzBChFHsMAEBGS8QLgpOBABAg5MIAIB7eIrxL0jLEDAABFYUNQEEEwQ
+QY8bACBzCnwOQPLAIpOsMpAGruCAPfcuQEQKBEzgjM0AvBwiNAhIDPCPH0yN79QeWzAwdAOfDMAI
+HzyLwL2//ejAwF+vMAHFzaKML8UQEPACAAuEPLbX0X5dtJsLVL0BR9A40JwDoA4ggl8xI3g1By+E
+vMECADQeQddrfi1AywssEEEKL1x8Nr56YwuABSmIsPcLl2+w8m8WPEuEsw7UuAECK0BXcrNHHxBw
+sQAOZMvLCiJM8MECFlTt3bY/bjCtABAIOIIIAyww7RDTiiiA0hYsYPgI206P7QvOAI/z9M9H33o9
+RtNOhAXXi+DdCwMMICK2G3wQgUukR1ssHlWPQDIEEZiC3/bnCAtA4APeeZcU3EXABiYhCAA7
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/newBanner3_r1_c2.gif
+
+R0lGODlhYgIMAJEAANPZ993h+dbc+AAAACH5BAQUAP8ALAAAAABiAgwAAAK2hI+py+0Po5y02ouz
+3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DxQIh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsO
+i8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2PgWABkpOUlZaXmJmam5ydnp
++QkaKjpKWmp6ipqqusra6voKGys7S1tre4ubq7vL2+v7CxwsPExcbHyMnKy8zNzs/AwdLT19WgAA
+Ow==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/newBanner3_r2_c2.gif
+
+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
+hA8CADs=
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/newBanner3_r2_c7.gif
+
+R0lGODlhMgAWAPcAADu+KrPenXm+XOz46Fu+UN7i+YLAeVO4P8nrvY/GiIC/YHG7Vvj89l++Q4vI
+c0q3NcTnt5nMmdbw0mTEUZPReXG/Ze7w/HrDbODk+Uy3Oli5QIPPZIzTa/P1/aLYi2m5UGLERbfm
+rqXTm3LDUuXo+ozPfFG4O5HZfeH13GvDWdPtx3rPWli9S33KaoXMdYnOaz68MsnjwnTHY1S8R///
+//L0/Z7UiWvCTKjdmoPIc22+WHLHXObm/5vWeozUcVnDQ1LFPGfASYTObXzJWafOoWnGVFPCQabf
+kknFNWO/UIrJfZDLg73ntN/x1X/BdUvDN0LDMJHScczpu2PKSmG5SoLFbGm9U5nMmUS4MIzGhE6+
+PtXvzqvWo5HJd0C8LEm+MpTWcszuxNHkzqrjneH02JrShqfdjHXMWZPZhFG9Om7NT3TOVUm8OpXM
+hY3Pc2S/V3S8WWS6S+X13mHDR3vLY129QY/Xfa3gnHa/a8zhyMDmruns+7jipYTWY32/YMbpuq3f
+kprPkX/GcXPFa4DUbES+MVC8QnnHZdvx0WnKTfH57YbXdJ7bj+n25Jvbha3ejF7KQ6vPpbDgoczk
+xszsvQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAQUAP8ALAAAAAAyABYA
+AAj/AAsIHEiwoMGDCBMqFDhJxBIlECEumUixjcWLFilqpKhkiYgYBzGIFDnpQoYDB6ioXEnFiksr
+OmLKlPnyZRyWGkxcmDSyp0gRBx480KAhTpwPSBcoXSpAgJ+nT5sKgLMUqVWVJrKK8CmyDRahM5Kk
+kCHjwoUqaNE6WOugi9subB2knXvoUEwqQR8s8ckFC5Y0aSbsaJGjhOHDJcooLmOjsePFkBG7aCGj
+SAMtbNhwIcGZxIyvgFlMSJFix466h1qoFsKatZvXblqrVo26CQTSc34AxjKjcyAvwL8IF/oAcBoN
+dZLPCXKj+YjnI5rfCEK9gXXANLYIFc7dSyDOb4IL/0ezZQuTOcl9hEHEqLkQBE22UBjygo8bFQhu
+UFAhQdKNOtkxYt4P3b3BmRZeFFLIE2jQEEYINEgAghA0IIIADSGcIYciejCgyAYe0MAADU00KAcT
+NPwBAg0OhkEDH088UYgXWuyxB3ALPjGGgycsokYiF66wwoYbcNCDGYrQwIEZNCjCwQYucrDGEY4k
+QsMAkECSHRAyKmgjAABAgQQSU6DAIg1MqNHEmSxuQAmLI4IBCA0QcMABGTQIucIaalQ4hZZbAIEE
+FGDayEaCTwDxwyKEjCEHDY5soaSdHITYBBiP9hBAilFEgQgNPmxwxxFnVJjIFBFy+YQXbNhIAAxf
+JP8KIRN2rOnDHTSocAcDiDDZBB8sakqDFGBEAawKONBAxgokFlFEqkB8AQMBNiagoBZGTMDEiAPg
+QAcd29LQiAf3NakCDQFsigAFr0EwIhlC0NHssxIYgRkbWVhggRgzsIGtEXNM4KxpO3zbGmwUJKww
+bK3F+61pzibxww+YzZCHvhZE4K8WMxBAwASjlXZaXS00DNtrstF2CMHOgswCC4awEQHG+jphiCEv
+J6EzaaSRRdZsDbM2G2or78DzGzq/bIgTNGNswAwvE/DG1G+IbBrJq6WsMsGkUf0GASzMYADNNZRd
+diQ6eCz11DwT7LMMs9H2tgw8p0C1xzoQYfbefEcukgUeFQRegVmEC5LD4S4k7sLhgjROOB6QA45H
+FpHwXXYHmGeu+eacd+7555sHBAA7
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/newBanner3_r2_c8.gif
+
+R0lGODlhCgA/ANUAAEFIdN7i+XqDtjNmzLjG6U1xqe7w/GGE06iw1kh1z0Rhjff4/oig3MvU7ufq
++0JzzlJ8v1Rdj8zS6f///+Xo+nKQ1klpm1N70KG0497j8vL0/VB3tUl6z9nf8uDk+ens+1R+xgAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAQUAP8ALAAAAAAKAD8AAAa1wIBw
+SCwWPcikcslsIinQqHRKrVqljqx2y+V+vuCweEz+Gs7otHrNbrvVmrh8Tq/b7/OFfs/v+/+AgYJ9
+E4WGh4iIAIuMjRGPkJECk5SVCJeYmRKbnJ0Zn6ChoqIdpaanDamqqwStrq8YsbKzDLW2txW5ursH
+vb6/F8HCwwnFxscPycrLzM3OycfRCRzU1dbX18PaFyDd3t/g4BDj5OUb5+jpBevs7Rbv8PEK8/T1
+A/f4+fr6QQA7
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/newBanner3_r3_c7.gif
+
+R0lGODlhMgAJAIAAAPf4/v///yH5BAQUAP8ALAAAAAAyAAkAAAIahI+py+0Po5y02ouz3rz3AIbi
+SJbmiabqehYAOw==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/newBanner3_r4_c1.gif
+
+R0lGODlhlgAeAMQAAEFIc4ig3EJzzszS6VB2tWGE00lpm6G04nqDtkRhjd7j8kl6zqiw1rjG6XKQ
+1lF6vVRdjk1wp9nf8Uh1z1N7z1J9w8vU7uHl9KG040pzrUprpQAAAAAAAAAAAAAAAAAAACH5BAQU
+AP8ALAAAAACWAB4AAAX/ICCOZGmeaKqubOu+sAvNdG3feK7vfO//wOAPQSwaj8ikcslsOp/QqBTK
+qFqv2Kx2y+16v+CweBwemM/otHrNbrvf8Lh8Tpcr7vi8fs/v+/+AgYKDhIWDF4iJiouMjY6PkJGS
+k5SVlpQSmZqbnJ2en6ChoqOkpaanpRaqq6ytrq+wsbKztLW2t7i2Dbu8vb6/wMHCw8TFxsfIyccH
+zBjOz9DR0tPU1dbX2Nna29zXAd/g4eLj5OXm5+jp6uvs7esO8PHy8/T19vf4+fr7/P3+/AUCChxI
+sKDBgwgTKlzIsKHDhw0pSJxIsaLFixgzatzIsaPHjyA9ThhJsqTJkyhT1apcybKly5cwY74UQLOm
+zZs4c+rcybOnz59AgwodSrSo0aNIkypdyrSp06dBZUqdSrWq1asrF2jdyrWr169gw4odS7as2bNo
+06pdy7at27dwQ8qdS7eu3bsaK+jdy7ev37+AAwseTLiw4cOIEytezLix48eQH0ieTLmy5cuYM2ve
+zLmz58+gPRMYTbq06dOoU6tezbq169ewY7+OQLu27du4c+vezbu379/AgwsHbqC48ePIkytfzry5
+8+fQo0ufHj2B9evYs2vfzr279+/gw4sfT158CAA7
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/products.gif
+
+R0lGODlheAAeANUAAEFIdIWl3VJ8v7TG601xqWGE097j8q7E6m+V1kRhjfX3/EJzznqDtlRdj8zS
+6YGg3kl6z5iy5NXe80lpm1N70Kiw1lB3tcbV8Eh1z1R+xt7n9lSC0qS959Dc83KV2v///6G044yq
+4eju+WOM03SZ21iE0LLG6b/O7am+39be98vU7lqF1FJ71mmM1n6c3HOU2Yyc3sTQ7pSt4q2954qn
+4J+15VqM1gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAQUAP8ALAAAAAB4AB4AAAb/QIBw
+SCwaj8ikcslsOp+NqHRKrVqv2Kx2y+16GeCweEwum8/otHrNblfe8Lh8Tq/b7/i8fs93+P+AgYKD
+hIWGh4iJiosGjY6PkJGSk5SVlpeYmZqbnJ2en6CUEqOkpaanqKmqq6ytrq+wKrKztLW2t7i5uru8
+vb6/A8HCw8TFxsfIycrLzM3OINDR0tPU1dbX2NYzAzPZ3t/g0gHj5OXm5+jp6uvpMR8x7Okn8fTq
+L/f4+fr7/P3+//0GfBgAkJ+BDwUT+ivAsKHDhxAjSpxIUeKBDwcqRvzwQaPHiRRCihxJsqTJkxRm
+zGhxQsWLkDJWupgBU4WEGgVE1pBwQiBN/xkSZIQcJdKFzRMvgHIkypJnC5RQTWKYSrWq1atYs2Lg
+eOGigqkdPnD40AHDxaciNEwde+KBArEYxnKYynHqgw8RKChQUIAERxIk9F4gcYKE1sNYFyhezLix
+48eQF3BcseDCBxcLwiqg0UKyBsUXPSzQ8IHyxRoLanxALfmDYtIUMn8QzVGxhw8aYkfezbu378i1
+U6+WTcM2WcWqUQdPLpx18OCMg0MQ8UGE6N/Ys2tvjXx42Ou3O3RX7rq5+RXPSzeGviLs5e2QEcuf
+v/XD1IshMIQ1jGED2bUfPIABdSuYBZdcGIRQFwaWzVXVglRddAF98kFg4YUYZqjhhhxCwPlRBBtQ
+NwIE+10Y1gYQaKAAiid8MA91HEAQwAcKcGDZBxb6hRcEG6D4FookgDiCix0WaeSRSHLIkQnVyWCh
+BJddWMIJGmggAQIWlgDlCTs5CUGLEmgpwYUBkPaBBCPK8NaVZp5QQpJHRiXnnBRwROedeOapJwUZ
+9Onnn4AGKuigGXBE6KGIJqrooow26mihHzwq6aSU+inApZhmqummnHYqAAooeCrqqKSWaiqpFqSq
+6qqsturqq7DGKuustNZqKwG45qrrrrz26uuvwAYr7LDEFjvBscgmq+yyzDbr7LPQRivttNQmYO21
+2Gar7bbcduvtt+CGK+64QQAAOw==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/company.gif
+
+R0lGODlheAAeANUAAEFIdIWl3VqF1EJzzrTG601xqd7j8q7E6muT2ERhjfX3/HqDtlR+xlRdj8zS
+6YGg3piy5FB3tUlpm9Xe80l6z6iw1lJ8v1N70Eh1z97n9sbV8HKV2qa+5tDc81qM1uju+f///4yq
+4X6c3KG047LG6dbe92iMx1J71qm+38vU7nSZ22GE03OVy5St4mmM1r/O7a295r/P6oyc3omk35+1
+5ZSv41SC0nOU2WOM07XO7wAAAAAAAAAAAAAAAAAAAAAAACH5BAQUAP8ALAAAAAB4AB4AAAb/QIBw
+SCwaj8ikcslsOp+NqHRKrVqv2Kx2y+16F+CweEwum8/otHrNblfe8Lh8Tq/b7/i8fs93+P+AgYKD
+hIWGh4iJiosGjY6PkJGSk5SVlpeYmZqbnJ2en6CUE6OkpaanqKmqq6ytrq+wKbKztLW2t7i5uru8
+vb6/BMHCw8TFxsfIycrLzM3OI9DR0tPU1dbX2Nna29zdM9/g4eLj5OXm5+jp6uvsN+7v8PHy8/T1
+9vf4+fr7K/3+/wADChxIsKDBgwgTKrzAsKHDhxAjSrwgIsWEFzcYingxgYALjRxEVOSwwsWLFBkv
+cOBgEmXDFhYxMmzBckaKFysucMx5gcaE/4lAIWIYSrSo0aNIkz4AAeGCAgUYlkLAoEHBCgwcQLz4
+8AHEgQwZQGgYCkLsARBQMYTweuFD2g5eM3Q9gOFsiKEfxibdi3SA37+AAwseTDjshQFwN8A9LAIE
+jQE0QHwY0BiEgAtl/ZYVMEADCBEDDnRwgRjEhtIdKINI7ULsgNYzCMueTbs27cyAcW9YDdnrgN0Z
+NIMQ7jfyY78UNoQ9DbfGb94DwlI4S8G29evY/27OPfx5auPeiQ/ADd5FBwUHujI3HX5ADRAhPuTI
+Lpuv/ftEPXMoGnaoCq9YgbDffx2QBYKBQ9mFQVgIYACXCg6CACGBQwkgGQgP4IcfBRx26P/hhyCG
+KOJ/TFFggw1ZBTCdhBRkxQEFBHJYloxM2dAVDhQoAAICCJSlAgUPwrhah3ApIOKRSCap5JIUBBAW
+CBPgyEEGE3ygYosCUtDYBDTSSIJkLXDYwlMkkDABAhRM8JmWUHbYglZMLhnUnHTWWWdZdk7UWAB5
+BsXAn4AGKuighBZq6KGGloXoogzEoACjkEYq6aSTKkqpoArEcKmhFnTq6aeghirqqKSWSioKKJiq
+qgkosKDqq55GIOustNZq66245qrrrrz26uuvBQQr7LDEFmvsscgmq+yyzDbrrATQRivttNRWa+21
+2Gar7bbcdpvAt+CGK+645JZr7rnopqsF7rrsBgEAOw==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/support.gif
+
+R0lGODlheAAeANUAAEFIdIWl3ViE0EJzzrTG601xqd7j8q7E6m+V1kRhjenv+XqDtlJ8v1Rdj8zS
+6YGg3kl6z5iy5Elpm9Xf8aiw1lB3tff4/Uh1z1N70MfW8FR+xt7n9qa+5nKV2tDc82iMx46s4f//
+/6G043SZ27LG6dbe96m+332f12GE08vU7mOM07/O7ZSv41SC0n6c3JOt162+53OU2Ymk32mM1pm0
+5Iyc3pes4FuE1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAQUAP8ALAAAAAB4AB4AAAb/QIBw
+SCwaj8ikcslsOp+NqHRKrVqv2Kx2y+16F+CweEwum8/otHrNblPe8Lh8Tq/b7/i8fs93+P+AgYKD
+hIWGh4iJiosGjY6PkJGSk5SVlpeYmZqbnJ2en6CUE6OkpaanqKmqq6ytrq+wKbKztLW2t7i5uru8
+vb6/BMHCw8TFxsfIycrLzM3OItDR0tPU1dbX2Nna29zdMt/g4eLj5OXm5+jp5jYw6u7hMfHy8/T1
+9vf4+fr79yIWBPwCzkNBsKDBgwgTKlzIsKFDhQdCHHhI0SCGixgzatzIsWNGFBwmZHCBgcCEGBhi
+TCBwkQOHGSsyoMTAgkOMkDIwzjC5gmRL/w40WUxQEELBBBYekya9wLSp06dQo0p16kHBCA4RLngI
+MeLCiBAemIYIkSGiBaZbN3CwEGLGBRQWMlyIEOKB2BAc8I5YEWLFCBRTAwceQLiw4cOIEys2HMLC
+jMJbOwzoAJbw2BsDMoRwMWCrjAEsJA4QsXkAhsoDxm5wgZm0iMWwY8ueTZuwZgssCEeejHosYded
+Q0im7CG45NQhLIfA/DvE69rQo0s3jCGi6N0yeicf7dw47+K7kSs3DHx6bMHo00N90Fgr1wt8w14Y
+yzQiCPdd2a+4ELHr/A13OZUXB+oVyBQECCao4IIMNuiggiuo0MIGCkAQ0QYHbOUBgmPR0OYCUSpA
+sFUGEGgGAgRfHQBBAHhxGIKCNEj04Iw01mjjjQhOMNYECECggo4kIDABCS6SUNSJEOi4ggUWEIlg
+ABsMxUGCYykogI6b4XijUlx26aVGY22k4wlflmnmRhqkqeaabLbp5ptwxjlWm2PGaeedeOap5558
+ajAnm3X2KeieDBRq6KGIJqrooow2aoIJib5gwgeNVmrppYtWoOmmnHbq6aeghirqqKSWauqpBaSq
+6qqsturqq7DGKuustNZqqwS45qrrrrz26uuvwAYr7LDEFpvAscgmq+yyzDbr7LPQRivttNQGAQA7
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/contactUs.gif
+
+R0lGODlheAAeANUAAEFIdICi3liE0EJzzrTG601xqd7j8q7E6muT2ERhjeju+XqDtlR+xlRdj8zS
+6X2f3ZSv49Xe81B3tUlpm0l6z/X3/MbV8FJ8v1N70Kiw1kh1z9Dc897n9nKV2mmM1qG044ig3P//
+/1J71mGE09jh9HSZ26a+5r/O7bXE6ZCt4MvU7nOU2Z+15WCL1VqF1ISe2+7y+lSC0lqM1q295o+m
+3pS15gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAQUAP8ALAAAAAB4AB4AAAb/QIBw
+SCwaj8ikcslsOp+NqHRKrVqv2Kx2y+16F+CweEwum8/otHrNbmfe8Lh8Tq/b7/i8fs93+P+AgYKD
+hIWGh4iJiosGjY6PkJGSk5SVlpeYmZqbnJ2en6CUJKOkpaanqKmqq6ytrq+wKrKztLW2t7i5uru8
+vb6/KMHCw8TFxsfIycrLzM3OH9DR0tPU1dbX2Nna29zdIN/g4eLj5OXm5yA0KOjl6uzv8N8r8/T1
+9vf4+fr7LzAG+/n6/QNIsGC9EQgTKlzIsKHDhxBBhCAB0aFEihUzalSIoaPHjyBDivwIIUIEAiM6
+QlARgUVKDBBMeACh4kRKAhxCVDiJYQQL/5MoPZY8OQKnTp4fVyAlEGEFBg8nIpzwMLKqRw1Ys2rd
+yrVr1gMhPJQIYUEDWKoKOGDdEOIABwVtNXiAEIJDCQ8aToQI4IEs1rNjLcyte3fr2A1rQ5TAUMFC
+iRMlvErOOqCy5cuYM2uujKFu5RAhBngeALbDALYbBjwIkXpAB9aWN7QGPaAzh8+hX7fGrLsy2w6v
+OWDYTLy48eOVe1tWziIEi9MhILiGPX13ZRevc1Nfvv2y8t8U4Cowjby8+c2vFXin3vz57+rJtz9Q
+oKC5dvXrrXNvDde0C7YhPHDeZZMVOFkFimUVA2tYmbCXBmxFdhhWE2qwoAIxaAAaVghGlv9VhYYx
+2AJoHprll4FdUaDiiiy26OKLKzpYQQkUtEABWzFQwEEFOUZIwWEqIlBXkCFgWANoKspIo41CcvDi
+gm1tkFMJJdQQw4gnwKjlllx2mSRcjVEgwAkccBABAipGECAFq0WwIgGgmUABnAqkYFKMYFqgIpwh
+yNkiCxUogABTCCCQUwgnCODli1Y16uijkEYq6aSOMmDppZhmqummnHbq6aeghirqqKSWauqpqKba
+6QWsturqq7DGKuustNZq66245irBrrz26uuvwAYr7LDEFmvsscgWoOyyzDbr7LPQRivttNRWa+21
+E2Sr7bbcduvtt+CGK+645JZrbgLopqsQ7rrstuvuu/DGK++89NYbBAA7
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/news.gif
+
+R0lGODlheAAeANUAAEFIdJSt4liE0EJzzrnL7U1xqWuT2K/D6t7j8kRhjXqDtuju+VJ8v1Rdj8zS
+6X6c3El6z5Sv40lpm9Xe81B3tUh1z1N70FR+xvX3/N3m9sfW8KG044ig3F2I1f///6a+5qiw1tDc
+83OU2Yqn4HOU3p+15YGg3mGE08vU7mmM1lJ71rLG6dbe96295r/O7Zez5IWl3WCL1Yyt3l6D01KA
+0gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAQUAP8ALAAAAAB4AB4AAAb/QIBw
+SCwaj8ikcslsOp+NqHRKrVqv2Kx2y+16FeCweEwum8/otHrNboPe8Lh8Tq/b7/i8fs93+P+AgYKD
+hIWGh4iJiosIjY6PkJGSk5SVlpeYmZqbnJ2en6CUE6OkpaanqKmqq6ytrq+wKLKztLW2t7i5uru8
+vb6/K8HCw8TFxsfIycrLzM3OG9DR0tPU1dbX2Nna29zdHN/g4eLj5OXm5+jp6uvsIu7v8PHy8/T1
+9vf4+fr7J/3+/wADChxIsKDBgwgTKrTAsKHDhxAjSpzo8MGHByJcaBDBcEaJUSUYfpiQwoIIDQwD
+TJhhQeWEABRjyoRYoabNmzhz6tzJ8+YH/w8EMmTwkKFmhgU0Ung4UOGFBxMVfqaoQABD1KcjCPTc
+yjXngK9gw4odS7as2bAlPGBg6MHDgAceQpRI61bpgQFDS+DVMCCEhxFnAwseTLhw4bR8B7QdkJYA
+vK8YQkAgmkGx3ghtD0AwzLmz585p9Sp2i5nAWA0eHiyAO8KDiK8RMBD97Lmr7ds6f36o2baCAbUd
+cDoNoRXDUBo2DSzwYAC3c5wQokufTr269evYp+uO3jY66gwxIISH8NsDDAgEiEY/YAC9h/HZ48uf
+T79+9u2TPUQXsGI5hg/SyRYdDB64EN0Ksi1wnn0MUkfDgxBGKOGEFFZo4YUYZqjhhhxe4HnhhyCG
+KOKIJJZo4okopqjiiiy26OKLMMZYIgM01mjjjTjmqOOOPPbo449ABknBkEQWaeSRSCap5JJMNunk
+k1AWIOWUVFZp5ZVYZqnlllx26eWXEoQp5phklmnmmWimqeaabLbpZgJwxinnnHTWaeedeOap5558
+9hkEADs=
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/newBanner3images/newBanner3_r5_c1.gif
+
+R0lGODlh7gICAIAAADNmzP///yH5BAQUAP8ALAAAAADuAgIAAAImhI+py+0Po5y02ouz3rz7D4bi
+SJbmiabqyrbuC8fyTNf2jef6VAAAOw==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/spacer.gif
+
+R0lGODlhAQABAIAAAP///wAAACH5BAEUAAAALAAAAAABAAEAAAICRAEAOw==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/newWebimages/bluespace.gif
+
+R0lGODlhAQABAIAAADNmzP///yH5BAQUAP8ALAAAAAABAAEAAAICRAEAOw==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/bode2.gif
+
+R0lGODdhWgGrAIAAAAAAAP///ywAAAAAWgGrAAAC/4yPqcvtD6OctNqLs968+w+G4kiW5omm6sq2
+7gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YplALbcrjcLDie95HJXjE7zvhK2+g13
+cTPzuP1O2nb0+L6fDvBRh8P3Z5gzKBhImHjoCNOoWDijF/l4aWIZotlSyIn59Ak5OXJmYbZ4MSka
+Z+ZUdlOZKjI3O4EKqMCq5so0uJvCR+pRNwxhnLsAHIa8NNy8smrLkQitPK3RbIpnfdQ9qouNESne
+8H1bbrB8dU7UzmKZThEvn/B+XB+wTnUf1B9cLt8DTu16jROo718oMk0UZkrnMKE8hAZVIZR4EQos
+X/8ZUYhSyOpcxHCn9jXs6M/WyGwC3y1ridJczG1ZVu74ZfMgujYueYKIaHJMTCAbX9z7dpRn0ZIO
+PtGsknNNVJ0VrPVDWrEqxG5PpUx99E/bTKMBA2H9CmqKVS3YguojKzOh0qFpF7IdGBeB27dyyspF
+h3bI3prG1uaVmA3utQNHByvp6scN14FmRwamfFddR8hYGG5ABTq06NGkS8tiu1SvY4ymW+Miqfeg
+69m0a9dmaTu3bteoPYdbufv2bzclgxs/Pjsym8lNiVvse833vNUnvqa+Q5w5aowsodtrO/3yJrrR
+xT8uPFFmKs4RzGdWrQww+WjzVbt/fFjLdvsz62v//f6eev6pMNV9UKFEz1jeMSYONM4RNWBdmGlV
+FoKKfcaeDwZK2NhEV10IyIalRChhfvjksw+JPoWoYictlggbZRdlGBuI4b3oIowe1WMSjeqAQyGO
+C+pYgoMgfRSDS9QxQmR1W+EGUZIUiQiPkE3+FSOL+knZHpU5XvlQllCK+aWAVnhZokpRPWUlPgK2
+SQmcTXoiVlbfeUIDekv+gGaalW1l552V5TmNj3aBuaN4D4JoqEZyXrlnbzUI06ijiAIkZJ+9RerO
+o4hepummrXj6aYGkdnmqDqHOqcilTrpaJlWwFpnqpQ7VSuSqYL7GH6ezBviri6EFSx+xxsKh67HJ
+/7q6LLHNlnqsDJVGSw2u0U5LbXfZCuvrtgB6Sx+24E43LqaLloshuk5Kp2617eaxCKXv7mHttfXC
++uyv+UJ6r7H7ztmvswFDOy+tw51bMHwJj3iwuOX+y2yhA9cFsa0SL/wfxuORqbGJHacrqMMPTzzr
+M9d9jCXKICusssctM/Xty4vJnAzLNNt8M7kx56wZzzDjnHPFBAN9s9C7kgywzxkrDSzTzTndNNQz
+S0001b0ih3XWWm8tmtXNcQ122GIf53XZZp+Ndtpqr812226/DXfccs9Nd91234133nrvzXfffv8N
+eOCCD0544YYfjnjiii/OeOOOUx0oEkg/PjkxfMc9HgtUl2M+KT+McW5D5dR8DjqhCBexXul5qsWu
+6p2oZY/rScJeo+xyeBWf7a9HAZ7uvv8OfPDCD0988cY7ffLxjGQt7dbKP+928tBPT3311l+PffY0
+n37T6No3FbsQlm3+fe3m92DWZ+SXv75gP5pzTPvfi34L+PbLnz39bdy/Jf7Y69+e8mgidewjHX7g
+9yYA4k2BeEFg/95XwPYx0H9ROh/7VOKOceQugqxBnQZ1wcEQinCEJCyhCU+IwhSqcIUsbKELt1UA
+ADs=
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/pid-2.gif
+
+R0lGODdhUgG2APcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4O
+Dg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEh
+ISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0
+NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdH
+R0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpa
+WltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1t
+bW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CA
+gIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOT
+k5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaam
+pqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5
+ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zM
+zM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f
+3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy
+8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAUgG2AAAI/wD/CRxI
+sKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaPHjyBDihxJsqTJkyhTqlzJsqXLlzBjypxJs6bN
+mzhz6tzJs6fPn0CDCh1KtKjRo0iTKl3KtKnTp1CjSp1KtarVq1izat3KtavXr2DDih1LFqsBAwDS
+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
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tsign1.gif
+
+R0lGODlhDAAIAPf/AAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4O
+Dg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEh
+ISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0
+NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdH
+R0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpa
+WltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1t
+bW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CA
+gIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOT
+k5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaam
+pqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5
+ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zM
+zM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f
+3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy
+8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///yH5BAEAAP8ALAAAAAAMAAgA
+QAgfAP8JHEiw4D8DBgwaRLgwoUKFDiFGLMjwIcKLFf8FBAA7
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tpidef1.gif
+
+R0lGODdhlwAtAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4O
+Dg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEh
+ISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0
+NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdH
+R0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpa
+WltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1t
+bW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CA
+gIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOT
+k5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaam
+pqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5
+ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zM
+zM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f
+3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy
+8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAlwAtAAAI/wD/CRxI
+sKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaPHjyBDihxJsqTJkyhTqlzJsqXLlzBj/jNAk6ZM
+gQYK5pS4c2BNgj+B9lQ59GbOoUUJmot30KbPpzOhRp1K9CZQqliFNsXac2dXqElNhoV5lKFThEjB
+SvXKsubYlV8TnkWr82xcnG9J5m3rVm7RoDivBqa6F2XhqoMNzpUreOpdslazJl3MeG3iw2Ij/637
+8O9cwJFDo3XbV7Tp06hTqzZNGvPq17Bjy55tsbXt0gtbO7zNu7fv38CB0x5OvLjx48iTK1/OvLnz
+kq63Nja4lK5QpIspZwRtOLpOrqPDW3AmrJbj48xv95aVqnVr2sF32W7cjFg6Y/XqG8snn/Wid5Bh
+kWZdfz4V5ll87c0XU3oKCdjUZJ/pd9lI/33EYGUEamcff+d5RF9KFX6IV2cS8idSh5nx9N11um04
+02caehjjczTWaOONOOao4448ehQQADs=
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/pid3.gif
+
+R0lGODdhaAHKAIAAAP///wAAACwAAAAAaAHKAAAC/4SPqcvtD6OctNqLs968+w+G4kiW5omm6sq2
+7gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5FXgfC6r18C0wc2O
+y2fwd2COz5vv+r4fVfcnOMgRSHiIKGHIl9jo+JYAh/ZI+SfJCICGWckpp8kw2Sk6GDpq2vd5qqpn
+uOo6lvoqC9s6a7tVequLu7nrOxX7KwxcO2yclHusjBS87GzU/CzdVjxtjVN9rU0Tve3N3fstDpM8
+br4Xfq5u0r3uLlL+Lg/SPm9/UX+vb5G97/+Q7p9ABwEHGoxU8ODBfgoFMmzo7yFEfQknRqxokSLG
+jP/qNEnkaM4jSIMiR/77aDLkxpQdWZJ0OXAlzHEyZ35DaXNbzZzacPK0lu+nt6BCb8YrSvMoUp1K
+lw5t6rQn0ajSSlJ9CvUq0KlalXnc2dXW17BYfeb4CpYC2rVsx5JtYDVIW7cu0r5dwDVGXLx5PZi9
+q6Dvi72BBReyC5jv3xKCDWNwnJhg1hST4S6eADkywMojOEtGDIGu5g+e6YFGeDr0aBKXH6dGUHr1
+jdgbWoN6jZqPaNn4bKvFjRCe7jvAeWdqUTwSPNjHjZP2vTk5bOjBpa+mzY96YetpCDvPDki74hDx
+rAPGjlkF+sIEvxdiZ56v38AHxI+OHx9UhkupMrv/p29afuP998N68g322m4EamAgewg+1+CCmURY
+n30RQOcfOt6RRJ2ALFAI4VxrLYShhwA9Z8OG0WX4DIgWqkVPio6htYaINqrIGGk1gEiHdixq8eKE
+Nw5JZJFGHolkkkouyWSTTQ7Bo3LczBYka1FS8qN+PZ4FjVRXQkKHDlX69WUlCs4nw5j4FFgmJ2d2
+YKJlO8TpmpqJTJKllHrx0CaDfY6Cn1529kZnaIN2Eig5h1bwJ6OLmsmOoNQUquU7idb1aHaUTpep
+m5EOBuWmdlD0KXKi7jdonsZc+uERjeLYUo4fdgonfrSqwiplt9Zm66m4lqqer7X6uOuvsgYrLITD
+/yZrLGutRgHrdsW+kusJzJLXmKrXVMvYtZ0hyRG330ooF7DwkduGucei24O42LJboLqdwRvvuvbS
+y+W92HqLL4DOdstvv3rOC7DAfMqrrMFiIlyrwgfrS6bDXpgXsMSUfVuxxdaOqzEX0k3bMXMQ+5mx
+xEEmhwnIGru7X4UlC8xyb3aY5WTIYP4b8VhM1hlyzI4KydasL4fLMKE0Kjp0Rj5jxt+uKhOYYDqN
+SmYzzrXVWzV5aLab9XK8Jp30REtvxubKRSsCdtgQjQ0Xm2qvfTbZc2obGdsHikl3Ynb7S+XUZO3t
+8llP/wT4qNi8/VnevhQ+oeBMHH0P44Mj3t5LI7N3+fhCceM1ZxNvulN4xkOPKO3gjezt98+YFll5
+TJtPxyfKrF9tudUXliyeke/VTjDaL092pHqaX863D0mSa/fbx0s4dupdw/m66c+33vtn00O5ufPX
+Mxi39NtXWv1232N/ufbjt1w+5c+HQndB3p9foZC2iwy/8cRZGJD6139OO6f673+y4NQvVJ9S3ACt
+BLD32cxJDITcAR8IwQhKcIIUrKAFL4jBDGpwgxzsoAc/CK8CAAA7
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tpidef2.gif
+
+R0lGODlhWgATAPf/AAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4O
+Dg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEh
+ISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0
+NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdH
+R0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpa
+WltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1t
+bW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CA
+gIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOT
+k5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaam
+pqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5
+ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zM
+zM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f
+3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy
+8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///yH5BAEAAP8ALAAAAABaABMA
+QAi/AP8JHEiwoMGDCBMqXMiw4UADBg1AhMiQ4kOBFC1eLKgRo8SHEzFudEiypMmTKCNyJNjxYEuF
+LytutEhTZMKYCHE61Jmyp8+fQE22zNhw6MSXMXHW/LeUqU2XKkc+dbqS6lCWRWdKDVqVq9evYMOK
+HUuWpMaOPHliTSnx7EeWabuqVdsVql2rI4nmVEmXKsi/dbdWfduUqc6rUxOjtYlYMMynfbculor0
+aFSPbdvmfIsZZeTId8uCBS26tGmyAQEAOw==
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/tpidef3.gif
+
+R0lGODlhTAAUAPf/AAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4O
+Dg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEh
+ISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0
+NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdH
+R0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpa
+WltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1t
+bW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CA
+gIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOT
+k5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaam
+pqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5
+ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zM
+zM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f
+3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy
+8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///yH5BAEAAP8ALAAAAABMABQA
+QAiuAP8JHEiwoMGDCBMqXMhQoAED/yAqfOiwokGJCzEOpCgRo8aGIEOKHJmR4EeSBU8m9Ggx4saW
+DVminEmzZkiVNlfCREjRIU6XE1O+BEq040GNMpFC7GnyodOnP1sa3Ulyas6rWLNq3XqTK0+hWaOm
+ZBqRbNmvVC8uFRv1Y9KhQFUujWkRZ9unQ3vK9ImWaFmkdS+C/GlVLNzAabk6bWqY4V6vkMc2jky5
+suXLOQMCADs=
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/pid4.gif
+
+R0lGODdhLgGlAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4O
+Dg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEh
+ISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0
+NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdH
+R0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpa
+WltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1t
+bW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CA
+gIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOT
+k5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaam
+pqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5
+ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zM
+zM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f
+3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy
+8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAALgGlAAAI/wD/CRxI
+sKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaPHjyBDihxJsqTJkyhTqlzJsqXLlzBjypxJs6bN
+mzhz6tzJs6fPn0CDCh1KtKjRo0iTBgXAtKnTp1CjSp1KtarVq1izat3KtWtWpRcBZBSLkaxFsxXR
+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
+kAj5LQEBADs=
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.ctc-control.com/customer/elearning/servotut/tut-pix/pid5.gif
+
+R0lGODdhWgG+AIAAAP///wAAACwAAAAAWgG+AAAC/4SPqcvtD6OctNqLs968+w+G4kiW5omm6sq2
+7gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9VoKaLfcrvcLDovH5LL5jE6r1+z2FgsK
+xLUe+cd+z+vrITyc4wdI1xG4UWi4RxjX98eXN4iYqOhIOSnZiHGYYQe5ufhpGQrIiBlJ2XmhmUkq
+atrqWpoKCoBaoSo7C6urcYsbuypZO9Fryzp6yWv8W3wpHEFMAR2N7EldvWwhLXHo/KD9rJxs7VuJ
+PZx70N3wDcHePp6NvmvuLW+gvuDuoL8Pz1x+zAonSATxCOPH4Ba+BAjzhbv2CmLEJ3QM0rp38SIn
+Bf8NOXrT1pHhQ2AAxfljIsfixpUYRfpb2LKkyYATydV0kjJdxpwaY+o8CTMkAqFDT54zelRgxp5M
+eRZyAzWq1KlUq1q9ioVn051cXcrkiI+oz5vTkIKzB2WgwbXpuKHNp/CtzZk069qlV88sLVVil36N
+pzdvYHN93TkrPHIu3XkS8QomC9bt4H5/AVe27Pjd4DdeIZf1vE0u5syULydEhTihYpI1uYQWTdrv
+3W2BUkceW7rovaBo/UCzODu2btPrfMtT6dBj542PgxvXLJu18OTEi/8sWXt3yjdd9lbUTcy2coyc
+92q/fp57+c7Tx4M+zVwm5/mDnDr1PjR876Ise9b/B9+fJn0JMVBbBroX3DDxtbZdgN59txtDv+2n
+00rcmedXgVtR9weE9y2I22KpaDWJa8g5iBxTIapmjXH9kbeghvdxKOGBbdUH0wwfkoebeLzkSNt6
+80WI34NqZbgei3+5ViSG22kn45FKujRjTFXysOOGw7330R38CDjZlE2yhyB0YqIXY4Ur3pDllVBe
+BWeccs5JJ53wXakSkDG02dWWCWajZ37AhdkdUUyetc4/Z7aEp5rR5aAhhpL6yZgsgSY5IDuHjgno
+f8WBNJKD17mZFmxH5ZjkmtJ9mluQqFk3aY+tIgqWjVCeV4WPpqiTKqWVcrpoZL2u2MmE8CnaHpki
+/0J00EKZ3qngp7zReGuDa5JIa7K+NkZXsagqs2lovg07q5XFbtWgi8hqq+pouuAIKijkatbdqkTC
++N2LEs5bJru6ihhou52G9K9PO+o73DcDXlGwvbFm+6NYDT9YLVdgCrxtshO7ayvEtgxZncfcLttI
+pAeZ+tppn338ashm/skxgPtKSSCfyo7scMfl7jOsxCiLjLN5afL4aA82Z7xazjoHC1cvPodJLWM5
+Da3lCfVaSvRTP7+sMte3AR2z0mE7nK/BFQYs3ZcW91hn226/DXfch2WdcJ9ZRP2OqEiPzffSZPKb
+qMvN/RqzF2bT3QJCR6MH88pdUnZ10n07Tvi6Iv9RTWoWaP9UEN5iWw4ri5FPnjKXg/8a6a3AkgCh
+ChuDHrqwQj0t+M5BG8241Vuf/viNz9YeOPDBF9F6Cq9T/oxa2M7mqddF8/457EEADnW/t0u7t7sV
+Lb+oZLZLDj6Bru/+Pc/WN3auetuXp16N0IcvPe7nV39z9Mfmvgt9dJusYvbHIz+9+pFveI2L3e9U
+A683eapX+qGfAH8wurs5EH/RGFQlnqQRlhyqQNxroPCYFgu2zI90pcsEiI5REAvh6kJE8h4BKwfA
+EDJHaxPEWDu4lwwgXeyDIyxc5wRFMyPMsIcxhN8NNxc7kf2vhMxDnJXsRoQhPjB+VAzSHGr4PCP/
+JgWBh6ua1XDIjBPKbYxkLKMZzWA+zK2Odf2rhhgHCMKBfal5BWQiyXK2wLqdkI1g/MzJsIiYCJov
+e1usI9hW85zneNEE1OPhFIuImXB1jZB2vB4kfYijmeGKCks85Lok6Tfama58JHRMJ51nL0mSS5SG
+RKX9IGU448HRc0nbIK8AOUtaQpCCIjjl+/gGSl1ecpiFbCUOLMjIXD6ymE3zoDFJSUxmDqGRo3zh
+HUkYTBt6Mprb5CZefAlNaTYznN2s5CvN2R5wWtOSQIyjN39ZxXeyKZuJ0WI57+k7IqKzlK60p/yO
+o0xK7hN7Au1nPAcaT9TQZ2H4vKEw5bnOc8pO/5sGhag7q6jGPY6AntxS50XFqSCOWvShIIVfRin6
+TyCecaUsbWmdzqJIa40PpR5zqU2dFadnRjR6J81iHWIJUFy2CI0FrYdI4TnSh/aUoSRNZUB5aamg
+nCEgR/0oQomp0ASiIF1M1edVvwoOat4JDKOp6jLB2lDCPJWmPBPlGLxmVrbu1J82+MJMHVnU3k2k
+DPUzq3jomNRSeLSpaSUnX9tqLEdsz6dzFc5gverQXIZhrEg9lYvWly7I6kCsMERrZfNWT5YBtZ1W
+RZT+0CUrJCBTgniFarQOSBO7alKzg8PgQlPV1a26Vq8heuxZgwfbeZBVdbsty3+OSzGm/TCfa//c
+6GhPlR/CVjQpARtXcT9rULtezTZD0qoqRWe3FOW2l2NxoU7BC0XaXJec0/Wd4f4nDaeF11HjJS0u
+skNb9oKWSpm8173GJSUGEkq2xIlvGrsoU1miUFk3bbCDH4wG9+VxVOll44J95VtBeWQtU8vaoESo
+IvxWE1qCkC4FE6lHucrRjUsxb2eTp648VUxSHxZvfkubN872i4bOQzGFNUpeQsTHxdcsRh7ZUjz+
+metGqR2xQ+IatdoYeJyxYpKO2blWxhqXICvkMHFN5N0/Onk8UD7Qaa9bX81dma76xW57M8ZKWAiS
+VSmiZJopkuWG8aWxJbXcnKnU4uhMeQl3zvD/epVYXaFOdJBaWd6gj7BmNvO5zwDsI47bXL5gcrlI
+PHbzPLWs6DHfzNImnjRCw3WuLK9gtclUdM9qCuU4F5m5LcMiC4qnW6H+Ga6HBnVhcRzB4BKvulLG
+cJ6XbKLk7rjXssayfVUcx9QlN9Kz5py1H+brXz+5H40uNaYv/W1lCzu6S91loM/92zfvd0wdNtfU
+puppU2vbyolpd0wrfMwnojuv4d42fy7E6nFLNN4zE3jZMnS2O4sDOAGHsMMf/vAa6S3QQK6rvgN+
+bCNVDOP+ja62001wyjKvXveueF1nqEh+y1vdj3HLo1/Mcm6X+YHStjISAxjq2P44sef19pRm/w7t
+EGb8gl2elqhVLiagK7wJhg76cjgnbZ/fGNzWvPLSUTL0UHTamTAPuec4e3VCZ73nUgd5v0dIzbAr
+oenZjvnZkV72KTZS7UlgO9vb/na4E1GkdFft2LvudbOv/LP07Duk/15tSns278x+dVa4AWIiO9vt
+VB+85S8P7u9OMqtBtLhsUCT5gTPe6YKPu94Fj2rwljvfn0dc6CVdedOfvteBL73Gi+bjJ5rcBSAS
+1ev5WfvZCx/voyd+wQXEwpLf3ML4nRHkIQ796LNU4k6kOOk/0fyu/P6gH7e97I0f+6kHa+I2huWo
+Iv998Kdf4LBff71BrDpqA8Huqm626DEffv/BIn7ylBe//73/f5hAf7Zmf+0XgMMHBwPYWrSHfwd4
+fQyIDQp4dMMngRPYIft3fw2IgHdneEKEgQbogBVIdvqXc4A3eiJogsuAgvwXfA+ofg7oglnxgcDX
+gi8IgAhogwI4g9zXfRCYfzjYgcSzg4F1gy7IgewiO9KnhEvYNkjohE8IhVEohVNIhVVohVeIhVmo
+hVvIhV3ohZlRC+zDanDhPihVa4knGEhkMgrzX/CXHMslhlpYbtPCcB2XF244IkLGKHk4cQeGWs/j
+IWtTfVW4esZShxRFNWgIOXK1OEa1P6rCJ+V3hYUIU9eWbYnIgm/IiIIIKigCiZxofTmoVgj/53qV
+uIeI2EWKGDi7x0WLlCiemEWRSF9ZSIn0YolsSIopCGjG14jc9oixCIqSOIlDBofqtRMplzynqIsJ
+ozhtuGU2EhbOuEnL94XVaI3XiI3ZqI3byI3d6I3fCI7hKI7jSI7laI7niI7pqI7ryI7tuANAd3gx
+6I5rJ3TyOI9+53HeIkU05i37Zh1SNY0LtFzYdo8UsWlShJCnOESkNilcl5DZh28FiXUAMmEoV5H8
+4XG7WGzMmJD8CFgSGQUQeW37qJA8YogC05HY0nv2CJI64hVi6GUrtGTatFj0ApPHCGB+05I6aIE7
+yY2z45NBKZRDSZRFaZRHiZRJqZRLyZRSAlgAADs=
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: text/css;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.ctc-control.com/ctc3.css
+
+.bodytext {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.bodycenter {
+	TEXT-ALIGN: center; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.bodyital {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+A:link {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366cc; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+A:visited {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #993333; FONT-SIZE: 10px; FONT-WEIGHT: normal; TEXT-DECORATION: =
+underline
+}
+.tiny {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: =
+0px; FONT-SIZE: 1px; PADDING-TOP: 0px
+}
+.blueheadsm {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366cc; FONT-SIZE: 9px; FONT-WEIGHT: bold
+}
+.orangeheadsm {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ee5f14; FONT-SIZE: 9px; FONT-WEIGHT: bold
+}
+.bluehead2 {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366cc; FONT-SIZE: 11px; FONT-WEIGHT: bold
+}
+.orangehead2 {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ee5f14; FONT-SIZE: 11px; FONT-WEIGHT: bold
+}
+.bodytextbold {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 11px; FONT-WEIGHT: bold
+}
+.leftborder {
+	BORDER-BOTTOM: #ffffff 0px solid; BORDER-LEFT: #3366cc 1px solid; =
+PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-TOP: =
+#ffffff 0px solid; BORDER-RIGHT: #ffffff 0px solid; PADDING-TOP: 5px
+}
+.padding5 {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 5px
+}
+.padding5-2 {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 2px
+}
+.padding15-2 {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 15px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 2px
+}
+.padding25-2 {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 25px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 2px
+}
+.bodyitalsmwhite {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ffffff; FONT-SIZE: 11px; FONT-WEIGHT: bold
+}
+.padding0-2 {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; =
+PADDING-TOP: 2px
+}
+.bluehead {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366cc; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+.orangehead {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ee5f14; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+.padding0-5 {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; =
+PADDING-TOP: 5px
+}
+.bodyitalblue {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366cc; FONT-SIZE: 26px; FONT-WEIGHT: bold
+}
+.whiteborder {
+	BORDER-BOTTOM: black 0px solid; BORDER-LEFT: #ffffff 1px solid; =
+BORDER-TOP: black 0px solid; BORDER-RIGHT: black 0px solid
+}
+.greenheadsm {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #64b152; FONT-SIZE: 9px; FONT-WEIGHT: bold
+}
+.whitehead {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ffffff; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+.test {
+	COLOR: #33ff00; FONT-SIZE: 12px
+}
+.ahover {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366ff; FONT-SIZE: 10px; FONT-WEIGHT: normal; TEXT-DECORATION: =
+underline
+}
+.bodyitalgreen {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #64b152; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.eightpt {
+	FONT-SIZE: 8px
+}
+.threept {
+	FONT-SIZE: 3px
+}
+.padding5left {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 5px
+}
+A:hover {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366ff; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.folder {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: #3366cc 1px solid; =
+PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #e3eaf8; PADDING-LEFT: 5px; =
+PADDING-RIGHT: 5px; BORDER-TOP: #3366cc 1px solid; BORDER-RIGHT: #3366cc =
+1px solid; PADDING-TOP: 5px
+}
+.paddingfolder {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 4px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 5px
+}
+.bodytextbig {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 12px; FONT-WEIGHT: normal
+}
+.bluehead1 {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366cc; FONT-SIZE: 16px; FONT-WEIGHT: bold
+}
+.tabletext {
+	PADDING-BOTTOM: 1px; FONT-STYLE: normal; PADDING-LEFT: 2px; =
+PADDING-RIGHT: 2px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 10px; FONT-WEIGHT: normal; PADDING-TOP: 1px
+}
+.tablehead {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 10px; FONT-WEIGHT: bold; PADDING-TOP: 4px
+}
+.bodytextindent {
+	FONT-STYLE: normal; PADDING-LEFT: 10px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif; FONT-SIZE: 10px; FONT-WEIGHT: normal; LEFT: 0px
+}
+.tabletext2 {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: black 0px solid; =
+PADDING-BOTTOM: 5px; FONT-STYLE: normal; PADDING-LEFT: 3px; =
+PADDING-RIGHT: 3px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 10px; BORDER-TOP: black 0px solid; FONT-WEIGHT: normal; =
+BORDER-RIGHT: black 0px solid; PADDING-TOP: 5px
+}
+.tabletext2bold {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: black 0px solid; =
+PADDING-BOTTOM: 5px; FONT-STYLE: normal; PADDING-LEFT: 3px; =
+PADDING-RIGHT: 3px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 10px; BORDER-TOP: black 0px solid; FONT-WEIGHT: bold; =
+BORDER-RIGHT: black 0px solid; PADDING-TOP: 5px
+}
+.tabletextbold {
+	PADDING-BOTTOM: 1px; FONT-STYLE: normal; PADDING-LEFT: 2px; =
+PADDING-RIGHT: 2px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 10px; FONT-WEIGHT: bold; PADDING-TOP: 1px
+}
+.bodytextindent2 {
+	FONT-STYLE: normal; PADDING-LEFT: 20px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif; FONT-SIZE: 10px; FONT-WEIGHT: normal; LEFT: 0px
+}
+.whiteheadsm {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ffffff; FONT-SIZE: 10px; FONT-WEIGHT: bold
+}
+.leftborder0-5 {
+	BORDER-BOTTOM: #ffffff 0px solid; BORDER-LEFT: #3366cc 1px solid; =
+PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-TOP: =
+#ffffff 0px solid; BORDER-RIGHT: #ffffff 0px solid; PADDING-TOP: 0px
+}
+.new {
+	BACKGROUND-COLOR: #ff0000; FONT-STYLE: normal; FONT-FAMILY: Arial, =
+Helvetica, sans-serif; BACKGROUND-POSITION: center center; COLOR: =
+#ffff00; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+.padding5-2bordertop {
+	BORDER-BOTTOM: #e6ebf4 0px solid; BORDER-LEFT: #e6ebf4 0px solid; =
+PADDING-BOTTOM: 2px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-TOP: =
+#3366cc 1px solid; BORDER-RIGHT: #e6ebf4 0px solid; PADDING-TOP: 2px
+}
+.padding5-2borderbottom {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: #e6ebf4 0px solid; =
+PADDING-BOTTOM: 2px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-TOP: =
+#e6ebf4 0px solid; BORDER-RIGHT: #e6ebf4 0px solid; PADDING-TOP: 2px
+}
+.bodytexthome {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #000000; FONT-SIZE: 12px; FONT-WEIGHT: normal
+}
+.greenhead {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #64b152; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+.whiteheadgreen {
+	PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #64b152; FONT-STYLE: italic; =
+PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif; COLOR: #ffffff; FONT-SIZE: 12px; FONT-WEIGHT: =
+bold; PADDING-TOP: 5px
+}
+.marginspace5 {
+	MARGIN: 5px
+}
+.bodytextboldsm {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 10px; FONT-WEIGHT: bold
+}
+.borderbottom {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: black 0px solid; =
+BORDER-TOP: black 0px solid; BORDER-RIGHT: black 0px solid
+}
+.nopadding {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; =
+PADDING-TOP: 0px
+}
+.greenheadbig {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #64b152; FONT-SIZE: 16px; FONT-WEIGHT: bold
+}
+.greenheadnormal {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #64b152; FONT-SIZE: 12px; FONT-WEIGHT: normal
+}
+.padding5right {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 0px
+}
+.padding5-2noborder {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 2px; =
+PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-TOP: 0px; BORDER-RIGHT: =
+0px; PADDING-TOP: 2px
+}
+.padding5-0 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 0px
+}
+.foldertop {
+	BORDER-BOTTOM: #3366cc 0px solid; BORDER-LEFT: #3366cc 1px solid; =
+PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #e3eaf8; BORDER-TOP: #3366cc 1px =
+solid; BORDER-RIGHT: #3366cc 1px solid; PADDING-TOP: 5px
+}
+.folderbottom {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: #3366cc 1px solid; =
+PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #e3eaf8; BORDER-TOP: #3366cc 0px =
+solid; BORDER-RIGHT: #3366cc 1px solid; PADDING-TOP: 5px
+}
+.folder1 {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: #3366cc 1px solid; =
+PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #e3eaf8; BORDER-TOP: #3366cc 1px =
+solid; BORDER-RIGHT: #3366cc 1px solid; PADDING-TOP: 5px
+}
+.padding15-0 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 5px; =
+PADDING-TOP: 0px
+}
+.bodytextrealbig {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 16px; FONT-WEIGHT: normal
+}
+.blueheadbig {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #3366cc; FONT-SIZE: 24px; FONT-WEIGHT: bold
+}
+.whiteheadVeryBig {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ffffff; FONT-SIZE: 24px; FONT-WEIGHT: bold
+}
+.padding15-2borderbottom {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: #e6ebf4 0px solid; =
+PADDING-BOTTOM: 2px; PADDING-LEFT: 15px; PADDING-RIGHT: 5px; BORDER-TOP: =
+#e6ebf4 0px solid; BORDER-RIGHT: #e6ebf4 0px solid; PADDING-TOP: 2px
+}
+.padding5-2borderbottomleft {
+	BORDER-BOTTOM: #3366cc 1px solid; BORDER-LEFT: #3366cc 1px solid; =
+PADDING-BOTTOM: 2px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-TOP: =
+#e6ebf4 0px solid; BORDER-RIGHT: #e6ebf4 0px solid; PADDING-TOP: 2px
+}
+.prelim {
+	BACKGROUND-COLOR: #e6ebf4; FONT-STYLE: normal; FONT-FAMILY: Arial, =
+Helvetica, sans-serif; BACKGROUND-POSITION: center center; COLOR: =
+#999999; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+.nerdo {
+	FONT-STYLE: normal; FONT-FAMILY: "Courier New", Courier, mono; =
+FONT-SIZE: 12px; FONT-WEIGHT: normal
+}
+.greyheadsm {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #666666; FONT-SIZE: 9px; FONT-WEIGHT: bold
+}
+.greyhead {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #666666; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+.blueSmallCaps {
+	FONT-VARIANT: small-caps; FONT-STYLE: normal; FONT-FAMILY: Verdana, =
+Arial, Helvetica, sans-serif; COLOR: #3366cc; FONT-SIZE: 12px; =
+FONT-WEIGHT: bold
+}
+.dropcontent {
+	DISPLAY: none
+}
+.tabstyle {
+	PADDING-BOTTOM: 8px; BACKGROUND-COLOR: #e6ebf4; PADDING-LEFT: 8px; =
+PADDING-RIGHT: 8px; FONT: bold 14px Arial; COLOR: #777777; BORDER-TOP: =
+gray 1px solid; CURSOR: hand; BORDER-RIGHT: white 3px outset; =
+PADDING-TOP: 8px
+}
+.tabstyle B {
+	COLOR: #bbbbbb; MARGIN-LEFT: 3px; MARGIN-RIGHT: 23px
+}
+#cyclelinks2 {
+	MARGIN-RIGHT: 15px
+}
+#cyclelinks2 .tabsfootstyle {
+	BACKGROUND-COLOR: white; FONT-WEIGHT: bold; MARGIN-RIGHT: 3px; =
+TEXT-DECORATION: none
+}
+.padding5-2greyBorderBottom {
+	BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: =
+5px; PADDING-RIGHT: 5px; PADDING-TOP: 2px
+}
+.bodytextBullet {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+FONT-SIZE: 14px; FONT-WEIGHT: normal; LIST-STYLE-IMAGE: =
+url(newWebimages/arrowBullet2.gif)
+}
+.whiteheadBig {
+	FONT-STYLE: italic; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ffffff; FONT-SIZE: 16px; FONT-WEIGHT: bold
+}
+.whitehead2 {
+	FONT-VARIANT: normal; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif; COLOR: #ffffff; FONT-SIZE: 14px; FONT-WEIGHT: =
+bold
+}
+.tabletextIndent {
+	PADDING-BOTTOM: 1px; FONT-STYLE: normal; TEXT-INDENT: 10px; =
+PADDING-LEFT: 2px; PADDING-RIGHT: 2px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif; FONT-SIZE: 10px; FONT-WEIGHT: normal; =
+PADDING-TOP: 1px
+}
+.bodytextindent {
+	PADDING-BOTTOM: 0px; FONT-STYLE: normal; TEXT-INDENT: 0px; =
+PADDING-LEFT: 30px; PADDING-RIGHT: 0px; FONT-FAMILY: Verdana, Arial, =
+Helvetica, sans-serif; FONT-SIZE: 10px; FONT-WEIGHT: normal; =
+PADDING-TOP: 0px
+}
+.redText {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ff0000; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.bodytextboldRed {
+	FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; =
+COLOR: #ff0000; FONT-SIZE: 11px; FONT-WEIGHT: bold
+}
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: 7bit
+Content-Location: http://www.ctc-control.com/customer/navfix.js
+
+version=0
+if (navigator.appName=="Netscape")
+  version=parseFloat(navigator.appVersion);
+if (navigator.appVersion.indexOf("MSIE")!=-1){
+  temp=navigator.appVersion.split("MSIE")
+  version=parseFloat(temp[1])
+}
+//version is now set correctly
+if (version >= 5) { //begin if level 1
+  // NN5+ or IE5+
+
+} //end if level 1
+else // begin else level 1
+{
+	if (document.all.sidebar1) 
+		{
+		document.all.sidebar1.style = "hideit";
+		} 
+	else
+	{
+		if (document.all.sidebar2)
+		{
+		document.all.sidebar2.style = "shown";
+
+}
+		else{}
+	}
+} //end else level 1
+
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.ctc-control.com/topbanner.js
+
+//----------DHTML Menu Created using AllWebMenus PRO ver =
+5.3-#828---------------
+//C:\Inetpub\wwwroot1\topbannerv7.awm
+var awmMenuName=3D'topbanner';
+var awmLibraryBuild=3D828;
+var awmLibraryPath=3D'/awmData-topbanner';
+var awmImagesPath=3D'/awmData-topbanner';
+var awmSupported=3D(navigator.appName + =
+navigator.appVersion.substring(0,1)=3D=3D"Netscape5" || document.all || =
+document.layers || navigator.userAgent.indexOf('Opera')>-1 || =
+navigator.userAgent.indexOf('Konqueror')>-1)?1:0;
+if (awmAltUrl!=3D'' && !awmSupported) =
+window.location.replace(awmAltUrl);
+if (awmSupported){
+var =
+nua=3Dnavigator.userAgent,scriptNo=3D(nua.indexOf('Chrome')>-1)?2:((nua.i=
+ndexOf('Safari')>-1)?7:(nua.indexOf('Gecko')>-1)?2:((document.layers)?3:(=
+(nua.indexOf('Opera')>-1)?4:((nua.indexOf('Mac')>-1)?5:1))));
+var mpi=3Ddocument.location,xt=3D"";
+var mpa=3Dmpi.protocol+"//"+mpi.host;
+var mpi=3Dmpi.protocol+"//"+mpi.host+mpi.pathname;
+if(scriptNo=3D=3D1){oBC=3Ddocument.all.tags("BASE");if(oBC && =
+oBC.length) if(oBC[0].href) mpi=3DoBC[0].href;}
+while (mpi.search(/\\/)>-1) mpi=3Dmpi.replace("\\","/");
+mpi=3Dmpi.substring(0,mpi.lastIndexOf("/")+1);
+var e=3Ddocument.getElementsByTagName("SCRIPT");
+for (var i=3D0;i<e.length;i++){if (e[i].src){if =
+(e[i].src.indexOf(awmMenuName+".js")!=3D-1){xt=3De[i].src.split("/");if =
+(xt[xt.length-1]=3D=3DawmMenuName+".js"){xt=3De[i].src.substring(0,e[i].s=
+rc.length-awmMenuName.length-3);if =
+(e[i].src.indexOf("://")!=3D-1){mpi=3Dxt;}else{if(xt.substring(0,1)=3D=3D=
+"/")mpi=3Dmpa+xt; else mpi+=3Dxt;}}}}}
+while (mpi.search(/\/\.\//)>-1) {mpi=3Dmpi.replace("/./","/");}
+var awmMenuPath=3Dmpi.substring(0,mpi.length-1);
+while (awmMenuPath.search("'")>-1) =
+{awmMenuPath=3DawmMenuPath.replace("'","%27");}
+document.write("<SCRIPT =
+SRC=3D'"+awmMenuPath+awmLibraryPath+"/awmlib"+scriptNo+".js'><\/SCRIPT>")=
+;
+var n=3Dnull;
+awmzindex=3D1000;
+}
+
+var awmImageName=3D'';
+var awmPosID=3D'';
+var awmSubmenusFrame=3D'';
+var awmSubmenusFrameOffset;
+var awmOptimize=3D1;
+var awmHash=3D'IPULLFFTXDPYBUBQXMTB';
+var awmUseTrs=3D0;
+var awmSepr=3D["0","","",""];
+var awmMarg=3D[0,0,0,0];
+function awmBuildMenu(){
+if (awmSupported){
+awmImagesColl=3D["products.gif",120,30,"products_f2.gif",120,30,"buttonSp=
+acer.gif",120,1,"support.gif",120,30,"support_f2.gif",120,30,"arrow.gif",=
+12,8,"arrowover.gif",12,8,"company.gif",120,30,"company_f2.gif",120,30,"c=
+ontactUs.gif",120,30,"contactUs_f2.gif",120,30,"news.gif",120,30,"news_f2=
+.gif",120,30];
+awmCreateCSS(0,1,0,n,n,n,n,n,'none','0','#000000',0,0);
+awmCreateCSS(1,2,1,'#000000',n,n,'4mm =
+sans-serif',n,'none','0','#000000','0px 0px 0px 0',0);
+awmCreateCSS(0,2,1,'#FFFFFF',n,n,'4mm =
+sans-serif',n,'none','0','#000000','0px 0px 0px 0',0);
+awmCreateCSS(1,2,1,'#3366CC','#E3EAF8',n,'bold 11px =
+sans-serif',n,'solid','1','#3366CC','1px 1px 1px 1',0);
+awmCreateCSS(0,2,1,'#FFFFFF','#3366CC',n,'bold 11px =
+sans-serif',n,'solid','1','#3366CC','1px 1px 1px 1',0);
+var =
+s0=3DawmCreateMenu(0,0,0,0,1,0,0,0,0,150,44,0,1,0,0,0,1,n,n,100,0,0,150,4=
+4,0,-1,1,200,200,0,0,0,"0,0,0",n,n,n,n,n,n,n,n,0,0,0,0,0,0,0,0,1);
+it=3Ds0.addItemWithImages(1,2,n,"","","","",0,1,1,3,3,3,n,n,n,"",n,n,n,"/=
+products/idxproducts.asp",n,0,0,2,n,n,n,n,n,n,0,0,0,0,0,n,n,n,0,0,0,0,n);=
+
+var =
+s1=3Dit.addSubmenu(0,0,-4,1,0,0,0,0,0,1,0,n,n,100,0,0,0,-1,1,1,200,0,0,"0=
+,0,0",0,"0",1);
+it=3Ds1.addItem(3,4,n,"overview",n,"","","intro to CTC =
+products",n,n,n,"/products/idxproducts.asp",n,0,0,2,0,0,1,n);
+it=3Ds1.addItem(3,4,n,"software",n,"","","CTHMI, CTServer, WebMon, =
+Quickstep",n,n,n,"/products/software/idxsoftware.asp",n,0,0,2,0,0,2,n);
+it=3Ds1.addItem(3,4,n,"controllers",n,"","","listing of CTC =
+controllers",n,n,n,"/products/idxcontrollers.asp",n,0,0,2,0,0,3,n);
+it=3Ds1.addItem(3,4,n,"&nbsp;user =
+interfaces&nbsp;&nbsp;",n,"","","touchscreens and text =
+displays",n,n,n,"/products/userint/idxuserint.asp",n,0,0,2,0,0,4,n);
+it=3Ds0.addItemWithImages(1,2,n,"","","","",3,4,4,3,3,3,n,n,n,"",n,n,n,"/=
+customer/idxcustomer.asp",n,0,0,2,n,n,n,n,n,n,0,0,0,0,0,n,n,n,0,0,0,11,n)=
+;
+var =
+s1=3Dit.addSubmenu(0,0,-4,1,0,0,0,0,0,1,0,n,n,100,0,0,0,-1,1,1,200,0,0,"0=
+,0,0",0,"0",1);
+it=3Ds1.addItem(3,4,n,"&nbsp;main support page&nbsp;",n,"","","tech =
+support options",n,n,n,"/customer/idxcustomer.asp",n,0,0,2,0,0,12,n);
+it=3Ds1.addItem(3,4,n,"&nbsp;e-learning center&nbsp;",n,"","","tutorials =
+and =
+reference",n,n,n,"/customer/elearning/idxelearning.asp",n,0,0,2,0,0,13,n)=
+;
+it=3Ds1.addItemWithImages(3,4,n,"tech =
+info",n,"","",n,n,n,3,3,3,5,6,6,"index of technical =
+documents",n,n,n,"/customer/techinfo/idxtechinfo.asp",n,0,0,2,n,n,n,n,n,n=
+,0,0,0,0,0,n,n,n,0,0,0,14,n);
+var =
+s2=3Dit.addSubmenu(0,0,-4,1,0,0,0,0,0,1,0,n,n,100,0,0,0,-1,1,1,200,0,0,"0=
+,0,0",0,"0",1);
+it=3Ds2.addItem(3,4,n,"5300 docs",n,"","","5200 tech and sales =
+literature",n,n,n,"/customer/techinfo/idxdocs5300.asp",n,0,0,2,0,0,15,n);=
+
+it=3Ds2.addItem(3,4,n,"5200 docs",n,"","","5200 tech and sales =
+literature",n,n,n,"/customer/techinfo/idxdocs5200.asp",n,0,0,2,0,0,16,n);=
+
+it=3Ds2.addItem(3,4,n,"5100 docs",n,"","","5100 tech and sales =
+literature",n,n,n,"/customer/techinfo/idxdocs5100.asp",n,0,0,2,0,0,17,n);=
+
+it=3Ds2.addItem(3,4,n,"2700 docs",n,"","","5100 tech and sales =
+literature",n,n,n,"/customer/techinfo/idxdocs2700.asp",n,0,0,2,0,0,18,n);=
+
+it=3Ds2.addItem(3,4,n,"&nbsp;&nbsp;2600/MultiPro =
+docs&nbsp;&nbsp;","2600/MultiPro docs","","","2600, 2601, MultiPro, =
+Quickstep =
+info",n,n,n,"/customer/techinfo/idxdocsmisc.asp",n,0,0,2,0,0,19,n);
+it=3Ds2.addItem(3,4,n,"software/UI docs",n,"","","2600, 2601, MultiPro, =
+Quickstep =
+info",n,n,n,"/customer/techinfo/idxdocssw.asp",n,0,0,2,0,0,20,n);
+it=3Ds2.addItem(3,4,n,"&nbsp;&nbsp;dimensions&nbsp;&nbsp;",n,"","","dimen=
+sions and dxf =
+drawings",n,n,n,"/customer/idxspecs.asp",n,0,0,2,0,0,21,n);
+it=3Ds1.addItemWithImages(3,4,n,"knowledge =
+base",n,"","",n,n,n,3,3,3,5,6,6,"knowledge =
+base",n,n,n,"/customer/techinfo/idxtnotes.asp",n,0,0,2,n,n,n,n,n,n,0,0,0,=
+0,0,n,n,n,0,0,0,22,n);
+var =
+s2=3Dit.addSubmenu(0,0,-4,1,0,0,0,0,0,1,0,n,n,100,0,1,0,-1,1,1,200,0,0,"0=
+,0,0",0,"0",1);
+it=3Ds2.addItem(3,4,n,"&nbsp;&nbsp;tech notes&nbsp;&nbsp;",n,"","","tech =
+notes",n,n,n,"/customer/techinfo/idxtnotes.asp",n,0,0,2,0,0,23,n);
+it=3Ds2.addItem(3,4,n,"FAQs",n,"","","frequently asked =
+questions",n,n,n,"/customer/techinfo/FAQs.asp",n,0,0,2,0,0,24,n);
+it=3Ds1.addItem(3,4,n,"applications",n,"","","customer application =
+stories",n,n,n,"/applications/idxApplications.asp",n,0,0,2,0,0,25,n);
+it=3Ds1.addItem(3,4,n,"downloads",n,"","","software =
+downloads",n,n,n,"/customer/idxdownloads.asp",n,0,0,2,0,0,26,n);
+it=3Ds1.addItem(3,4,n,"sample =
+code",n,"","","/customer/sampleCode.asp",n,n,n,"/customer/sampleCode.asp"=
+,n,0,0,2,0,0,34,n);
+it=3Ds1.addItemWithImages(3,4,n,"contact",n,"","",n,n,n,3,3,3,5,6,6,"",n,=
+n,n,n,n,0,0,2,n,n,n,n,n,n,0,0,0,0,0,n,n,n,0,0,0,27,n);
+var =
+s2=3Dit.addSubmenu(0,0,-4,1,0,0,0,0,0,1,0,n,n,100,0,0,0,-1,1,1,200,0,0,"0=
+,0,0",0,"0",1);
+it=3Ds2.addItem(3,4,n,"CTC direct",n,"","","CTC phone, =
+email",n,n,n,"/company/contact.asp",n,0,0,2,0,0,28,n);
+it=3Ds2.addItem(3,4,n,"distributor locator",n,"","","find your local CTC =
+distributor",n,n,n,"/customer/distributor/distrmap.asp",n,0,0,2,0,0,29,n)=
+;
+it=3Ds0.addItemWithImages(1,2,n,"","","","",7,8,8,3,3,3,n,n,n,"",n,n,n,"/=
+company/idxcompany.asp",n,0,0,2,n,n,n,n,n,n,0,0,0,0,0,n,n,n,0,0,0,5,n);
+var =
+s1=3Dit.addSubmenu(0,0,-4,1,0,0,0,0,0,1,0,n,n,100,0,0,0,-1,1,1,200,0,0,"0=
+,0,0",0,"0",1);
+it=3Ds1.addItem(3,4,n,"overview",n,"","","",n,n,n,"/company/idxcompany.as=
+p",n,0,0,2,0,0,6,n);
+it=3Ds1.addItem(3,4,n,"employment",n,"","","",n,n,n,"/company/jobs.asp",n=
+,0,0,2,0,0,7,n);
+it=3Ds1.addItem(3,4,n,"&nbsp;holiday =
+schedule&nbsp;",n,"","","",n,n,n,"/company/holidays.asp",n,0,0,2,0,0,8,n)=
+;
+it=3Ds1.addItem(3,4,n,"directions",n,"","","driving directions to =
+CTC",n,n,n,"/company/dir.asp",n,0,0,2,0,0,9,n);
+it=3Ds1.addItem(3,4,n,"seminars &amp;  events",n,"","","driving =
+directions to CTC",n,n,n,"/company/seminarevent.asp",n,0,0,2,0,0,10,n);
+it=3Ds0.addItemWithImages(1,2,n,"","","","",9,10,10,3,3,3,n,n,n,"for CTC =
+distributors",n,n,n,"/company/contact.asp",n,0,0,2,n,n,n,n,n,n,0,0,0,0,0,=
+n,n,n,0,0,0,30,n);
+it=3Ds0.addItemWithImages(1,2,n,"","","","",11,12,12,3,3,3,n,n,n,"site =
+map",n,n,n,"/press/index.asp",n,0,0,2,n,n,n,n,n,n,0,0,0,0,0,n,n,n,0,0,0,3=
+1,n);
+var =
+s1=3Dit.addSubmenu(0,0,-4,1,0,0,0,0,0,1,0,n,n,100,0,0,0,-1,1,1,200,0,0,"0=
+,0,0",0,"0",1);
+it=3Ds1.addItem(3,4,n,"press =
+room",n,"","","",n,n,n,"/press/index.asp",n,0,0,2,0,0,32,n);
+it=3Ds1.addItem(3,4,n,"announcements",n,"","","new product =
+announcements",n,n,n,"/press/prodAnnounce.asp",n,0,0,2,0,0,33,n);
+s0.pm.buildMenu();
+}}
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.ctc-control.com/customer/tree.js
+
+// Title: Tigra Tree
+// Description: See the demo at url
+// URL: http://www.softcomplex.com/products/tigra_menu_tree/
+// Version: 1.0
+// Date: 07-20-2002 (mm-dd-yyyy)
+// Contact: feedback@softcomplex.com (specify product title in the =
+subject)
+// Notes: Registration needed to use this script on your web site.
+// 	Registration for this version (1.0) is free of charge.
+//	Visit official site for details
+
+
+
+
+function tree (a_items, a_template) {
+
+	this.a_tpl      =3D a_template;
+	this.a_config   =3D a_items;
+	this.o_root     =3D this;
+	this.a_index    =3D [];
+	this.o_selected =3D null;
+	this.n_depth    =3D -1;
+=09
+	this.toggle =3D function (n_id) {	var o_item =3D this.a_index[n_id]; =
+o_item.open(o_item.b_opened) };
+	this.select =3D function (n_id) { return this.a_index[n_id].select(); =
+};
+	this.mout   =3D function (n_id) { this.a_index[n_id].upstatus(true) };
+	this.mover  =3D function (n_id) { this.a_index[n_id].upstatus(true) };
+
+	this.a_children =3D [];
+	for (var i =3D 0; i < a_items.length; i++)
+		new tree_item(this, i);
+
+	this.n_id =3D trees.length;
+	trees[this.n_id] =3D this;
+
+version=3D0
+if (navigator.appName=3D=3D"Netscape")
+  version=3DparseFloat(navigator.appVersion);
+if (navigator.appVersion.indexOf("MSIE")!=3D-1){
+  temp=3Dnavigator.appVersion.split("MSIE")
+  version=3DparseFloat(temp[1])
+}
+//version is now set correctly
+if (version >=3D 5) { //add if stmt here
+  // NN5+ or IE5+
+
+=09
+for (var i =3D 0; i < this.a_children.length; i++) {
+		document.write(this.a_children[i].init());
+		this.a_children[i].open();
+	}
+	} //end if stmt
+else{
+//do nothing for yucky browsers
+}
+}
+
+
+function tree_item (o_parent, n_order) {
+
+	this.n_depth  =3D o_parent.n_depth + 1;
+	this.a_config =3D o_parent.a_config[n_order + (this.n_depth ? 2 : 0)];
+	if (!this.a_config) return;
+
+	this.o_root    =3D o_parent.o_root;
+	this.o_parent  =3D o_parent;
+	this.n_order   =3D n_order;
+	this.b_opened  =3D !this.n_depth;
+
+	this.n_id =3D this.o_root.a_index.length;
+	this.o_root.a_index[this.n_id] =3D this;
+	o_parent.a_children[n_order] =3D this;
+
+	this.a_children =3D [];
+	for (var i =3D 0; i < this.a_config.length - 2; i++)
+		new tree_item(this, i);
+
+	this.get_icon =3D item_get_icon;
+	this.open     =3D item_open;
+	this.select   =3D item_select;
+	this.init     =3D item_init;
+	this.upstatus =3D item_upstatus;
+	this.is_last  =3D function () { return this.n_order =3D=3D =
+this.o_parent.a_children.length - 1 };
+}
+
+function item_open (b_close) {
+	var o_idiv =3D get_element('i_div' + this.n_id);
+	if (!o_idiv) return;
+=09
+	if (!o_idiv.innerHTML) {
+		var a_children =3D [];
+		for (var i =3D 0; i < this.a_children.length; i++)
+			a_children[i]=3D this.a_children[i].init();
+		o_idiv.innerHTML =3D a_children.join('');
+	}
+	o_idiv.style.display =3D (b_close ? 'none' : 'block');
+=09
+	this.b_opened =3D !b_close;
+
+=09
+var o_jicon =3D document.images['j_img' + this.n_id],
+		o_iicon =3D document.images['i_img' + this.n_id];
+	if (o_jicon) o_jicon.src =3D this.get_icon(true);
+	if (o_iicon) o_iicon.src =3D this.get_icon();
+	this.upstatus(true);
+
+}
+
+function item_select (b_deselect) {
+	if (!b_deselect) {
+		var o_olditem =3D this.o_root.o_selected;
+		this.o_root.o_selected =3D this;
+		if (o_olditem) o_olditem.select(true);
+	}
+=09
+
+var o_iicon =3D document.images['i_img' + this.n_id];
+	if (o_iicon) o_iicon.src =3D this.get_icon();
+	get_element('i_txt' + this.n_id).style.fontWeight =3D b_deselect ? =
+'normal' : 'bold';
+=09
+	this.upstatus(true);
+	return Boolean(this.a_config[1]);
+
+}
+
+function item_upstatus (b_clear) {
+	window.setTimeout('window.status=3D"' + (b_clear ? '' : =
+this.a_config[0] + (this.a_config[1] ? ' ('+ this.a_config[1] + ')' : =
+'')) + '"', 10);
+}
+
+function item_init () {
+=09
+	var a_offset =3D [],
+		o_current_item =3D this.o_parent;
+	=09
+if (version >=3D 5) { //begin if stmt here
+  // NN5+ or IE5+
+
+	=09
+	for (var i =3D this.n_depth; i > 1; i--) {
+		a_offset[i] =3D '<img src=3D"' + =
+this.o_root.a_tpl[o_current_item.is_last() ? 'icon_e' : 'icon_l'] + '" =
+border=3D"0" align=3D"absbottom">';
+		o_current_item =3D o_current_item.o_parent;
+	}
+	return '<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0"><tr><td =
+nowrap>' + (this.n_depth ? a_offset.join('') + (this.a_children.length ? =
+'<a href=3D"javascript: trees[' + this.o_root.n_id + '].toggle(' + =
+this.n_id + ')" onmouseover=3D"trees[' + this.o_root.n_id + '].mover(' + =
+this.n_id + ')" onmouseout=3D"trees[' + this.o_root.n_id + '].mout(' + =
+this.n_id + ')"><img src=3D"' + this.get_icon(true) + '" border=3D"0" =
+align=3D"absbottom" name=3D"j_img' + this.n_id + '"></a>' : '<img =
+src=3D"' + this.get_icon(true) + '" border=3D"0" align=3D"absbottom">') =
+: '') + '<a href=3D"' + this.a_config[1] + '" target=3D"' + =
+this.o_root.a_tpl['target'] + '" onclick=3D"return trees[' + =
+this.o_root.n_id + '].select(' + this.n_id + ')" ondblclick=3D"trees[' + =
+this.o_root.n_id + '].toggle(' + this.n_id + ')" onmouseover=3D"trees[' =
++ this.o_root.n_id + '].mover(' + this.n_id + ')" onmouseout=3D"trees[' =
++ this.o_root.n_id + '].mout(' + this.n_id + ')" class=3D"t' + =
+this.o_root.n_id + 'i" id=3D"i_txt' + this.n_id + '"><img src=3D"' + =
+this.get_icon() + '" border=3D"0" align=3D"absbottom" name=3D"i_img' + =
+this.n_id + '" class=3D"t' + this.o_root.n_id + 'im">' + =
+this.a_config[0] + '</a></td></tr></table>' + (this.a_children.length ? =
+'<div id=3D"i_div' + this.n_id + '" style=3D"display:none"></div>' : =
+'');
+}
+else{ //added navck else here
+}
+}
+
+function item_get_icon (b_junction) {
+	return this.o_root.a_tpl['icon_' + ((this.n_depth ? 0 : 32) + =
+(this.a_children.length ? 16 : 0) + (this.a_children.length && =
+this.b_opened ? 8 : 0) + (!b_junction && this.o_root.o_selected =3D=3D =
+this ? 4 : 0) + (b_junction ? 2 : 0) + (b_junction && this.is_last() ? 1 =
+: 0))];
+}
+
+var trees =3D [];
+get_element =3D document.all ?
+	function (s_id) { return document.all[s_id] } :
+	function (s_id) { return document.getElementById(s_id) };
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.ctc-control.com/customer/treecust_items.js
+
+/*=20
+	the format of the tree definition file is simple,
+	you can find specification in the Tigra Menu documentation at:
+=09
+	http://www.softcomplex.com/products/tigra_menu/docs/items.html=09
+*/
+
+var TREE_ITEMS =3D [
+	['Customer Main', =
+'http://www.ctc-control.com/customer/idxcustomer.asp',
+/*		['<span id=3Dnolinks>product info:</span>', null,
+			['catalog request', 'http://www.ctc-control.com/inq.asp'],
+			['datasheets', =
+'http://www.ctc-control.com/customer/techinfo/idxdocs5100.asp'],
+		=09
+			],//end product info
+*/	=09
+['tech info', =
+'http://www.ctc-control.com/customer/techinfo/idxtechinfo.asp',
+				['<span id=3Dnolinks>documentation:</span>', null,
+['5300', =
+'http://www.ctc-control.com/customer/techinfo/idxdocs5300.asp'],
+['5200', =
+'http://www.ctc-control.com/customer/techinfo/idxdocs5200.asp'],
+['5100', =
+'http://www.ctc-control.com/customer/techinfo/idxdocs5100.asp'],
+['2700', =
+'http://www.ctc-control.com/customer/techinfo/idxdocs2700.asp'],
+['26xx', =
+'http://www.ctc-control.com/customer/techinfo/idxdocsmisc.asp#26xx'],
+['MultiPro', =
+'http://www.ctc-control.com/customer/techinfo/idxdocsmisc.asp#multipro'],=
+
+['software', =
+'http://www.ctc-control.com/customer/techinfo/idxdocssw.asp#uguides'],
+['peripherals', =
+'http://www.ctc-control.com/customer/techinfo/idxdocsmisc.asp#uguides'],
+],//end documentation			=09
+['<span id=3Dnolinks>knowledge base:</span>', null,
+['tech notes', =
+'http://www.ctc-control.com/customer/techinfo/idxtnotes.asp'],
+['FAQs', 'http://www.ctc-control.com/customer/techinfo/FAQs.asp'],
+], //end knowledge base
+['drawings', 'http://www.ctc-control.com/customer/idxspecs.asp'],
+ ], //end tech info
+['downloads', 'http://www.ctc-control.com/customer/idxdownloads.asp'], =
+//end downloads
+['sample code', 'http://www.ctc-control.com/customer/sampleCode.asp'],
+['<span id=3Dnolinks>compliance:</span>', null,
+['5100', 'http://www.ctc-control.com/customer/5100aa.asp'],
+['RoHS', 'http://www.ctc-control.com/customer/rohs.asp'],
+], //end agency approvals
+['<span id=3Dnolinks>tech support:</span>', null,
+['main page', 'http://www.ctc-control.com/customer/idxcustomer.asp'],
+['CTC contacts', 'http://www.ctc-control.com/company/contact.asp'],
+['distributor locator', =
+'http://www.ctc-control.com/customer/distributor/distrmap.asp'],
+['RMA page', 'http://www.ctc-control.com/customer/rma.asp'],
+], //end tech support
+], //end customer
+];
+
+
+------=_NextPart_000_0000_01CB1487.454A5170
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.ctc-control.com/customer/tree_tpl2.js
+
+/*
+	Feel free to use your custom icons for the tree. Make sure they are all =
+of the same size.
+	User icons collections are welcome, we'll publish them giving all =
+regards.
+*/
+
+var tree_tpl =3D {
+	'target'  : '_self',	// name of the frame links will be opened in
+							// other possible values are: _blank, _parent, _search, _self and =
+_top
+
+	'icon_e'  : '../../../icons/empty.gif', // empty image
+	'icon_l'  : '../../../icons/line.gif',  // vertical line
+=09
+	'icon_48' : '../../../icons/base.gif',   // root icon normal
+	'icon_52' : '../../../icons/base.gif',   // root icon selected
+	'icon_56' : '../../../icons/base.gif',   // root icon opened
+	'icon_60' : '../../../icons/base.gif',   // root icon selected
+=09
+	'icon_16' : '../../../icons/folder.gif', // node icon normal
+	'icon_20' : '../../../icons/folderopen.gif', // node icon selected
+	'icon_24' : '../../../icons/folder.gif', // node icon opened
+	'icon_28' : '../../../icons/folderopen.gif', // node icon selected =
+opened
+
+	'icon_0'  : '../../../icons/page.gif', // leaf icon normal
+	'icon_4'  : '../../../icons/page.gif', // leaf icon selected
+	'icon_8'  : '../../../icons/page.gif', // leaf icon opened
+	'icon_12' : '../../../icons/page.gif', // leaf icon selected
+=09
+	'icon_2'  : '../../../icons/joinbottom.gif', // junction for leaf
+	'icon_3'  : '../../../icons/join.gif',       // junction for last leaf
+	'icon_18' : '../../../icons/plusbottom.gif', // junction for closed =
+node
+	'icon_19' : '../../../icons/plus.gif',       // junction for last =
+closed node
+	'icon_26' : '../../../icons/minusbottom.gif',// junction for opened =
+node
+	'icon_27' : '../../../icons/minus.gif'       // junction for last =
+opened node
+
+};
+
+
+------=_NextPart_000_0000_01CB1487.454A5170--
