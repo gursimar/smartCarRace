@@ -1,0 +1,21 @@
+	for (;;) {
+    
+    /**** Use SW1 and SW2 to control the LEDs ****/		
+	  LED1 = SW1;			// Turns on or off LED1
+	  delay();
+	  LED1 = OFF;
+		LED2 = SW1;			// Turns on or off LED2
+	  delay();
+	  LED2 = OFF;
+		LED3 = SW2;			// Turns on or off LED3
+		delay();
+	  LED3 = OFF;
+		LED4 = SW2;			// Turns on or off LED4			
+		delay();
+	  LED4 = OFF;
+		
+		/**** Use SW3 (1-4) to control the LEDs ****/
+		//LED1 = SW31;			// Turns on or off LED1
+		//LED2 = SW32;			// Turns on or off LED2
+		//LED3 = SW33;			// Turns on or off LED3
+		//LED4 = SW34;			// Turns on or off LED4

@@ -1,0 +1,69 @@
+*******************simple with 2 & 4 on************************
+void main(void) 
+{
+	EnableInterrupts;
+  SetupXGATE();
+  PeriphInit();			// Microcontroller initialization
+  	
+		LED1 = 1;			// Turns on or off LED1
+		LED2 = 0;			// Turns on or off LED2
+		LED3 = 1;			// Turns on or off LED3
+		LED4 = 0;			
+		
+	while(1) {
+	}
+		
+}//end main(void)
+
+
+**************
+
+	o signifies on and one off......
+#define LED1 PORTB_PB4
+#define LED2 PORTB_PB5
+#define LED3 PORTB_PB6
+#define LED4 PORTB_PB7
+
+
+jumper led 4 switches it off
+
+
+*******************SEXY*******************
+void main(void) 
+{
+	
+	
+	EnableInterrupts;
+  SetupXGATE();
+  PeriphInit();			// Microcontroller initialization
+  	
+  	
+  	while(1) {
+	
+	  LED1  = 0;			// Turns on or off LED1
+    delay(1);
+	  LED2 = 0;			// Turns on or off LED2
+		delay(1);
+		LED3 = 0;			// Turns on or off LED3
+		delay(1);
+		LED4 = 0  ;
+		delay(1);
+		LED4 = 1;
+		delay(1);
+    LED3=1;
+    delay(1);
+    LED2=1;
+    delay(1);
+    LED1=1;
+    delay(1);
+	}
+		
+}//end main(void)
+
+
+LED'S OFF AT NON ZERO VALUES AND ON AT O VALUE
+
+SWITCH OFF 1 5V  ...
+SWITCH ON 0 OV  ...
+
+

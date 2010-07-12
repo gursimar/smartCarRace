@@ -1,0 +1,1 @@
+#define SET_OUTPUT_PORT(x) (0xff<<((x)+1))
