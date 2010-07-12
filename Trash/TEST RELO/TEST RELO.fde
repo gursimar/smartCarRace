@@ -1,0 +1,70 @@
+[Relo Project 2.0]
+3
+C20100711234619 0C:\Users\simar\Desktop\smart car rcing\TEST RELO\main.c
+H00000000000000I0stdio.h
+H00000000000000I0conio.h
+-1
+-1
+-1
+
+ParentList=0,0
+ChildList=1,2
+
+[Relative Filenames]
+RelativeFileName=0,main.c
+
+[Include Paths]
+
+[Library Paths]
+
+[Options]
+Output=TEST RELO.exe
+Libraries=
+ApplicationType=console
+WindowsApp=no
+ForceCppCompile=no
+ExcludeCppLib=no
+TurnOffWarnings=no
+ExtraCompileSwitches=
+ExtraLinkSwitches=
+ExtraLinkSwitches=
+OverrideTabSize=0
+DisableLibraries=no
+CreateImportLibrary=yes
+CreateDefFile=yes
+DefFileName=
+NormalBuild=yes
+RunMake=no
+PreBuild=no
+PreBuildCmd=
+PostBuild=no
+PostBuildCmd=
+PMHeadersExpand=no
+PMResExpand=no
+PMDocExpand=no
+PMMiscExpand=no
+WebHost=http://
+WebPath=c:\www
+WebOpenUrl=no
+
+[Open Files]
+OpenFile=1,65,47,1,0,0,0,0,0,0,0,0,0,0,C:\Users\simar\Desktop\smart car rcing\TEST RELO\main.c
+OpenFile=23,49,137,1,0,0,0,0,0,0,0,0,0,0,C:\Users\simar\Desktop\smart car rcing\mc9s12xd256\LATEST\Project 2.0\Sources\main.c
+CurrentOpenFile=C:\Users\simar\Desktop\smart car rcing\TEST RELO\main.c
+
+[Closed Files]
+ClosedFile=49,38,29,1,0,0,0,0,0,0,0,0,0,0,C:\Users\simar\Desktop\smart car rcing\mc9s12xd256\LATEST\Project 2.0\Sources\compensation.h
+
+[Windows]
+ProjManVisible=yes
+ProjManAlignLeft=yes
+CompilerOutput=yes
+
+[Code Hints]
+CodeHintFile=ansi_c.hint
+
+[Run Parameters]
+CurrentParams=
+RunWorkDir=
+
+[Find Keywords]

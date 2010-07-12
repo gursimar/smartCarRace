@@ -1,0 +1,145 @@
+;*****************************************************************************
+;
+; Name:  sscdwdm.inf
+;
+; Function:
+;	Install the SAMSUNG CDMA Modem (WDM) on Win9x
+;
+; Copyright (c) 1997-2001 MCCI
+;
+; $Id: lower9x.inf,v 1.16 2002/06/12 17:37:35 greg Exp $
+;
+; MCCI is a registered trademark of Moore Computer Consultants, Inc
+;
+; NOTICE: This software is licensed, not sold.  Any modification of this
+; inf file to change the reference to an operating system or to change the
+; reference to a device is not permitted unless authorized in writing by
+; Moore Computer Consultants, Inc..
+;
+;*****************************************************************************
+
+[Version]
+signature="$CHICAGO$"
+Class=USB
+ClassGuid={36FC9E60-c465-11cf-8056-444553540000}
+Provider=%Provider%
+DriverVer=07/23/2002, 3.34.0.2700
+
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-----------------------------------------------------------------------------
+;   Change A:\ to source drive (or omit to always (?) be prompted)
+;-----------------------------------------------------------------------------
+[SourceDisksNames]
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;	having the tagfile non-null seems to help...
+1=%DiskString%,"sscdmdm.sys",,
+
+[SourceDisksFiles]
+; filename = diskid[,[ subdir][, size]]
+sscdmdm.sys = 1
+sscdcr.sys = 1
+sscdvcr.vxd = 1
+sscdcm95.sys = 1
+sscdcmnt.sys = 1
+sscdcomm.vxd = 1
+sscdvcd.vxd = 1
+sscdvxd.inf = 1
+
+;-----------------------------------------------------------------------------
+; Specify target paths...
+;-----------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir          = 11                    ; LDID_SYS
+
+;-----------------------------------------------------------------------------
+; Table of Contents
+;-----------------------------------------------------------------------------
+[Manufacturer]
+%SAMSUNG%=SAMSUNG
+
+;-----------------------------------------------------------------------------
+; Device-by-device entries
+;-----------------------------------------------------------------------------
+[SAMSUNG]
+%Samsung.Modem.Desc% = SAMSUNG.Install, USB\VID_04E8&PID_6601&MI_00&OS_9X
+
+;-----------------------------------------------------------------------------
+; Installation instructions
+;-----------------------------------------------------------------------------
+
+[SAMSUNG.Install]
+AddReg		= SAMSUNG.AddReg,SAMSUNG.W95.AddReg,SAMSUNG.W95.AddReg.CRGuid
+CopyFiles	= CopyFiles, CopyFiles.W95, CopyFiles.sys, CopyFiles.W95.sys
+DriverVer=07/23/2002, 3.34.0.2700
+
+
+;-----------------------------------------------------------------------------
+;  Registry
+;-----------------------------------------------------------------------------
+
+; common registry entries 
+[SAMSUNG.AddReg]
+HKR,,NTMPDriver,,sscdmdm.sys
+HKR,,CRUpperDescription,,%UpperDescription%
+
+; only for Win95....
+[SAMSUNG.W95.AddReg]
+HKR,,DevLoader,,*ntkern
+
+[SAMSUNG.W95.Addreg.CRGuid]
+HKR,,CRGuid,,{05D2A0D0-C810-4495-8F97-3BAA1D2871F7}
+
+;-----------------------------------------------------------------------------
+;  Copy lists
+;-----------------------------------------------------------------------------
+[CopyFiles]
+
+[CopyFiles.W95]
+sscdvcr.vxd
+sscdcomm.vxd
+sscdvcd.vxd
+
+[CopyFiles.sys]
+sscdmdm.sys
+sscdcr.sys
+
+[CopyFiles.W95.sys]
+sscdcm.sys,sscdcm95.sys
+sscdcm95.sys
+sscdcmnt.sys
+
+[Copyfiles.W95.inf]
+sscdvxd.inf
+
+
+;-----------------------------------------------------------------------------
+; STRINGS
+;-----------------------------------------------------------------------------
+[Strings]
+
+;BEGIN ENG - US English Strings
+Provider = "SAMSUNG Electronic Co., Ltd."
+SAMSUNG = "SAMSUNG Electronic Co., Ltd."
+DiskString = "SAMSUNG CDMA Modem Drivers"
+
+Samsung.Modem.Desc = "SAMSUNG CDMA Modem"
+UpperDescription = "SAMSUNG CDMA Modem"
+
+CustomerDataPath = "SAMSUNG CDMA Modem"
+DriverSet = "SAMSUNG CDMA Modem Driver Set"
+UninstallFile = "SSCDUninstall.exe"
+McciOptions = "Uninstallable"
+
+
+;END ENG - US English Strings
+
+
+;-----------------------------------------------------------------------------
+; The following are symbolic constants which don't change per locale.
+;-----------------------------------------------------------------------------
+
+
+;*** end of file ***

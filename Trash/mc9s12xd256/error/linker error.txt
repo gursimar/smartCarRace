@@ -1,0 +1,5 @@
+http://forums.freescale.com/t5/CodeWarrior-for-8-and-16-bit/Link-Error-L1822/m-p/33628
+
+http://forums.freescale.com/t5/CodeWarrior-General/Link-error-L1822-what-is-that/m-p/5713
+
+http://forums.freescale.com/t5/16-Bit-Microcontrollers/Floating-Point-Operations/m-p/7680?query.id=50604

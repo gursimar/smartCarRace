@@ -1,0 +1,12 @@
+Tuning the PID control
+	This is the most interesting part in building a PID control. In this step one should tune the Kp, Ki and Kd values to get the best results. I cannot give you the values because what works for me will not work for you. The optimum Kp, Ki and Kd values vary a lot from robot to robot. And the best way to determine the optimum values is by trial and error.
+First, set all values to 0 and start with tuning the Kp value. First time I just gave an approximate value. Seeing the robot perform will determine what you should do next. If the robot wobbles a lot reduce the Kp value, if the doesn't follow the line (goes straight in curves) increase the Kp value. Tune the Kp value till the robot smoothly follows the line. By now you will have observed that the robot goes with no acceleration on straight lines. Now, tune the Kd term. After tuning the Kd term move to the Ki term. After which, you will see the robot first center over a straight line and then accelerate also.
+Note: The optimum Kp, Ki and Kd values vary a lot even from track to track. You can only know these optimum values by testing. 
+
+
+Error = target_pos – current_pos               //calculate error
+P = Error * Kp                       //error times proportional constant gives P
+I = I + Error                         //integral stores the accumulated error
+I = I * Ki                             //calculates the integral value 
+D = Error – Previos_error       //stores change in error to derivate
+Correction = P + I + D
