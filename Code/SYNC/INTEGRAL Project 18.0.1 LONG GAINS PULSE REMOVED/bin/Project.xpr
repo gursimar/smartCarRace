@@ -1,0 +1,5 @@
+Data:1 < ADDXPR ONLY_ADD_IF_NEW "setpoint"
+Data:1 < ADDXPR ONLY_ADD_IF_NEW "pulse_count"
+Data:1 < ADDXPR ONLY_ADD_IF_NEW ":main:totalsum"
+Data:1 < ADDXPR ONLY_ADD_IF_NEW ":main:start_count"
+Data:1 < ADDXPR ONLY_ADD_IF_NEW "totalsum"
