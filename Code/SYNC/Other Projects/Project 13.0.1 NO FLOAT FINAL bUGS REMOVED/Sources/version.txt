@@ -1,0 +1,14 @@
+/********************************************************
+version - 1.0
+last edited - 12-aug-2010
+gursimran singh
+
+description - Not tested any code, only checked the logic and made the flowcharts..
+
+TODO::
+
+0. calliberate the sensors for the new track that is made by me :)
+1. use interrupts to set the value of kp and ki by switches
+2. find the values of error
+
+*********************************************************/

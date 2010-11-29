@@ -1,0 +1,8 @@
+14-aug-2010
+	* main.c	Updated the MAX_CORRECTION, MIN_CORRECTION to 305.
+	* main.c, Added limit bounds algo on iterm to prevent overflow.
+	* compensation.h, rewritten bound limit code for compensation values..
+
+18-aug-2010
+	* compensation.c, Converted the macros for compensation values to variables..
+	* testing of the new code in compensation.c

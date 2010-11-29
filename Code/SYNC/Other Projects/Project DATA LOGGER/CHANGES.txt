@@ -1,0 +1,7 @@
+5-sep-2010
+          *This project logs error values and does not use interrupts in it...
+          *This project contains the new SORTing algo
+          
+          *CONTAINS THE LATEST COMPENSATION ALGO
+          
+        

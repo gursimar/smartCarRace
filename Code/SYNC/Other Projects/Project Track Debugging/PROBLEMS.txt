@@ -1,0 +1,19 @@
+Track overrun at the edges of the track
+
+          1. May be sampling can overcome the problem, so learn interrupts as soon as possible...
+          2 May be on the final track the car will not overrun the track.
+          3. Develop a trackover run algorithm and modify the position calculation algorithm.
+          
+          4. Change the entire algorithm and replace with a different algorithm to find the error..
+          
+          
+ Solution
+   looking at the values of sensors from the final track traversal data,
+          
+          On white, sensor values may vary from place to place, but it is very essential requirement of the algorithm that at white,
+          all values of sensors should be alsolutely 0. This is particularly the case of 0th sensor.
+          
+          The caliberation of the all sensor has to be done so that values at any position os decreasing in both directions. This is 
+          also the case of 0th sensor..
+          
+       

@@ -1,0 +1,18 @@
+28-aug-2010
+          * New global.h      synchronize everywhere ..
+          * New adc.h
+          * new compensation.h          new compensation values..
+          
+         
+29-aug-2010
+          * new algo for compensation that take care of proper rounding the values..
+          
+31-aug-2010
+          * main.c, complete change of program structure
+          * compensation.c new sorting algo of sample values
+          * compensation.h bug removed that set the values of sensor 7 to 255.
+          
+5-sep-2010
+          *SYNCED the bug fix in positio data calculatein in pr data logger
+          
+        

@@ -1,0 +1,2 @@
+14-aug-2010
+	* Changed the servo limits to new difference of 310.

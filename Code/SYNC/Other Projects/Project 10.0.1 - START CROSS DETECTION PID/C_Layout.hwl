@@ -1,0 +1,17 @@
+OPEN source 0 0 60 39
+Source < attributes TOOLTIP on,TOOLTIP_FORMAT signed,TOOLTIP_MODE details,FREEZE off,MARKS off
+OPEN procedure 60 54 40 24
+Procedure < attributes VALUES on,TYPES off
+OPEN data 0 39 60 39
+Data:1 < attributes SCOPE global,COMPLEMENT None,FORMAT Symb,MODE automatic,SORT NotSort,UPDATERATE 10,NAMEWIDTH 16
+OPEN data 0 78 60 22
+Data:2 < attributes SCOPE local,COMPLEMENT None,FORMAT Symb,MODE automatic,SORT NotSort,UPDATERATE 10,NAMEWIDTH 16
+OPEN command 60 78 40 22
+Command < attributes CACHESIZE 1000
+OPEN Visualizationtool 60 0 40 53
+VisualizationTool< Attributes []
+VisualizationTool< ResetVT Undo
+bckcolor 50331647
+font 'Courier New' 9 BLACK
+AUTOSIZE on
+ACTIVATE "Command" "Data:1" "Data:2" "Source" "Procedure" "VisualizationTool"

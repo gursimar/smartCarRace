@@ -1,0 +1,11 @@
+28-aug-2010
+          * New global.h      synchronize everywhere ..
+          * New adc.h
+          * new compensation.h          new compensation values..
+          
+         
+29-aug-2010
+          * new algo for compensation that take care of proper rounding the values..
+
+4-sep-2010
+	* written code for pulse accumulator

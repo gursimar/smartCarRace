@@ -1,0 +1,2 @@
+* Sensor 0,7 are more sensitive.
+* To remove the seventh sensor completely as prof MuthuKumar has said.

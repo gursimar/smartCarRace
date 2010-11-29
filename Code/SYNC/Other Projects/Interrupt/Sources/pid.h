@@ -1,0 +1,272 @@
+/*
+UNSTOPPABLE interrupt mode with CONTINUOUS mode
+
+	ATD0CTL2_AFFC=1;   //The flag CCF clears automatically if we read the appropriate result register
+                    ATD0CTL5_SCAN=1;    //CONTINUOUS mode
+                    
+                    *******In this mode the ADC conversion starts automatically after a particular interval.. flags cleared or not ....
+                    
+                    LED3=~LED3;
+                    uart0_tx_string(" Interrupt ADC complete haha !!");
+
+UNSTOPPABLE interrupt mode if flags not cleared...
+
+ISR (isrVatd0)
+{
+          FLAG IS NOT SET..... So interrupts occur untill the flag remainss...
+          
+          //ATD0STAT0_SCF=1;    //This clears the ASCIF bit which is liked to SCF. Alter.. read the result register ..
+          // See how many reads are req to clear the reg. It is conjectured that atleast one may req..
+          LED3=~LED3;
+          uart0_tx_string(" Interrupt ADC complete haha !!");
+}
+
+
+ISR (simar)
+{  
+          PIFP = 32;                            // Clears flag. Writes logical one to the 5h pin n 7th pin is intentially left  to experiment
+          LED4=~LED4;
+          uart0_tx_newline();
+          uart0_tx_string(" Interrupt !! ... sTARTS A NEW SEQ :::: ::::: ");
+          ATD0CTL5_SCAN=0;
+}
+
+
+BUTTON based ADT
+
+          ATD0CTL5_SCAN=0;    //single conversion mode
+
+ISR (isrVatd0)
+{
+          CLEARING THIS FLAG IS NECESSARY
+          ATD0STAT0_SCF=1;    //This clears the ASCIF bit which is liked to SCF. Alter.. read the result register ..
+          // See how many reads are req to clear the reg. It is conjectured that atleast one may req..
+          LED3=~LED3;
+          uart0_tx_string(" Interrupt ADC complete haha !!");
+}
+
+          YET ANOTHER METHOD TO CLEAR FLAGS
+          ATD0CTL2_AFFC=1;   //The flag CCF clears automatically if we read the appropriate result register
+          
+          
+ISR (isrVatd0)
+{
+          //ATD0STAT0_SCF=1;    //This clears the ASCIF bit which is liked to SCF. Alter.. read the result register ..
+          // See how many reads are req to clear the reg. It is conjectured that atleast one may req..
+          LED3=~LED3;
+          
+             a[0] =  ATD0DR0H;
+             a[1] =  ATD0DR1H;
+             a[2] =  ATD0DR2H;
+             a[3] =  ATD0DR3H;
+             a[4] =  ATD0DR4H;
+             a[5] =  ATD0DR5H;
+             a[6] =  ATD0DR6H;
+             a[7] =  ATD0DR7H;
+	  
+          
+          uart0_tx_string(" Interrupt ADC complete haha !!");
+}
+
+ISR (simar)
+{  
+          PIFP = 32;                            // Clears flag. Writes logical one to the 5h pin n 7th pin is intentially left  to experiment
+          LED4=~LED4;
+          uart0_tx_newline();
+          uart0_tx_string(" Interrupt !! ... sTARTS A NEW SEQ :::: ::::: ");
+          ATD0CTL5_SCAN=0;
+}
+
+
+
+
+*/
+
+
+
+#define __DI()  { asm sei; }      /* Disable global interrupts  */
+#define __EI()  { asm cli; }      /* Enable global interrupts */
+#define ISR(x) __interrupt void x(void)
+
+unsigned char a[8];
+
+
+void ISR_init()
+{
+
+          __EI()    //enable interrupts
+          
+          /* IRQCR: IRQEN=0 */
+          IRQCR &= (unsigned char)~64;                     
+ 
+          /* PIEP: PIEP7=1,PIEP6=0,PIEP5=1,PIEP4=0,PIEP3=0,PIEP2=0,PIEP1=0,PIEP0=0 */
+          PIEP = 160;                                      
+         
+          //new code ends
+
+}
+
+ISR (isr_default)
+{}
+
+ISR (isrVatd0)
+{
+             //ATD0STAT0_SCF=1;    //This clears the ASCIF bit which is liked to SCF. Alter.. read the result register ..
+             
+             // See how many reads are req to clear the reg. It is conjectured that atleast one may req..
+             LED3=~LED3;
+          
+             a[0] =  ATD0DR0H;
+             //a[1] =  ATD0DR1H;
+             //a[2] =  ATD0DR2H;
+             //a[3] =  ATD0DR3H;
+             //a[4] =  ATD0DR4H;
+             //a[5] =  ATD0DR5H;
+             //a[6] =  ATD0DR6H;
+             //a[7] =  ATD0DR7H;
+	  
+          
+          uart0_tx_string(" Interrupt ADC complete haha !!");
+}
+
+
+ISR (simar)
+{  
+          PIFP = 32;                            // Clears flag. Writes logical one to the 5h pin n 7th pin is intentially left  to experiment
+          LED4=~LED4;
+          uart0_tx_newline();
+          uart0_tx_string(" Interrupt !! ... sTARTS A NEW SEQ :::: ::::: ");
+          ATD0CTL5_SCAN=0;
+}
+
+
+
+/* Interrupt vector table */
+
+/* ISR prototype */
+typedef void (*near tIsrFunc)(void);
+
+#ifndef UNASSIGNED_ISR
+          #define UNASSIGNED_ISR isr_default   /* unassigned interrupt service routine */
+#endif
+
+const tIsrFunc _InterruptVectorTable[] @0xFF10 = { /* Interrupt vector table */
+            /* ISR name                               No.  Address Pri XGATE Name          Description */
+            UNASSIGNED_ISR,                       /* 0x08  0xFF10   -   -    ivVsi         unused by PE */
+            UNASSIGNED_ISR,                       /* 0x09  0xFF12   1   no   ivReserved119 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x0A  0xFF14   1   no   ivReserved118 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x0B  0xFF16   1   no   ivReserved117 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x0C  0xFF18   1   no   ivReserved116 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x0D  0xFF1A   1   no   ivReserved115 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x0E  0xFF1C   1   no   ivReserved114 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x0F  0xFF1E   1   no   ivReserved113 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x10  0xFF20   1   no   ivReserved112 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x11  0xFF22   1   no   ivReserved111 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x12  0xFF24   1   no   ivReserved110 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x13  0xFF26   1   no   ivReserved109 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x14  0xFF28   1   no   ivReserved108 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x15  0xFF2A   1   no   ivReserved107 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x16  0xFF2C   1   no   ivReserved106 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x17  0xFF2E   1   no   ivReserved105 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x18  0xFF30   1   no   ivReserved104 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x19  0xFF32   1   no   ivReserved103 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x1A  0xFF34   1   no   ivReserved102 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x1B  0xFF36   1   no   ivReserved101 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x1C  0xFF38   1   no   ivReserved100 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x1D  0xFF3A   1   no   ivReserved99  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x1E  0xFF3C   1   no   ivReserved98  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x1F  0xFF3E   1   no   ivReserved97  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x20  0xFF40   1   no   ivReserved96  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x21  0xFF42   1   no   ivReserved95  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x22  0xFF44   1   no   ivReserved94  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x23  0xFF46   1   no   ivReserved93  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x24  0xFF48   1   no   ivReserved92  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x25  0xFF4A   1   no   ivReserved91  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x26  0xFF4C   1   no   ivReserved90  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x27  0xFF4E   1   no   ivReserved89  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x28  0xFF50   1   no   ivReserved88  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x29  0xFF52   1   no   ivReserved87  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x2A  0xFF54   1   no   ivReserved86  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x2B  0xFF56   1   no   ivReserved85  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x2C  0xFF58   1   no   ivReserved84  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x2D  0xFF5A   1   no   ivReserved83  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x2E  0xFF5C   1   no   ivReserved82  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x2F  0xFF5E   1   no   ivReserved81  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x30  0xFF60   1   -    ivVxsramav    unused by PE */
+            UNASSIGNED_ISR,                       /* 0x31  0xFF62   1   -    ivVxsei       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x32  0xFF64   1   no   ivVxst7       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x33  0xFF66   1   no   ivVxst6       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x34  0xFF68   1   no   ivVxst5       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x35  0xFF6A   1   no   ivVxst4       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x36  0xFF6C   1   no   ivVxst3       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x37  0xFF6E   1   no   ivVxst2       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x38  0xFF70   1   no   ivVxst1       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x39  0xFF72   1   no   ivVxst0       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x3A  0xFF74   1   no   ivVpit3       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x3B  0xFF76   1   no   ivVpit2       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x3C  0xFF78   1   no   ivVpit1       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x3D  0xFF7A   1   no   ivVpit0       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x3E  0xFF7C   1   no   ivVReserved65 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x3F  0xFF7E   1   no   ivVapi        unused by PE */
+            UNASSIGNED_ISR,                       /* 0x40  0xFF80   1   no   ivVlvi        unused by PE */
+            UNASSIGNED_ISR,                       /* 0x41  0xFF82   1   no   ivVReserved62 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x42  0xFF84   1   no   ivVReserved61 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x43  0xFF86   1   no   ivVsci4       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x44  0xFF88   1   no   ivVReserved59 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x45  0xFF8A   1   no   ivVsci2       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x46  0xFF8C   1   no   ivVpwmesdn    unused by PE */
+            simar,                                /* 0x47  0xFF8E   1   no   ivVportp      used by PE */
+            UNASSIGNED_ISR,                       /* 0x48  0xFF90   1   no   ivVReserved55 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x49  0xFF92   1   no   ivVReserved54 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x4A  0xFF94   1   no   ivVReserved53 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x4B  0xFF96   1   no   ivVReserved52 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x4C  0xFF98   1   no   ivVReserved51 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x4D  0xFF9A   1   no   ivVReserved50 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x4E  0xFF9C   1   no   ivVReserved49 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x4F  0xFF9E   1   no   ivVReserved48 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x50  0xFFA0   1   no   ivVReserved47 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x51  0xFFA2   1   no   ivVReserved46 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x52  0xFFA4   1   no   ivVReserved45 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x53  0xFFA6   1   no   ivVReserved44 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x54  0xFFA8   1   no   ivVReserved43 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x55  0xFFAA   1   no   ivVReserved42 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x56  0xFFAC   1   no   ivVReserved41 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x57  0xFFAE   1   no   ivVReserved40 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x58  0xFFB0   1   no   ivVcan0tx     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x59  0xFFB2   1   no   ivVcan0rx     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x5A  0xFFB4   1   no   ivVcan0err    unused by PE */
+            UNASSIGNED_ISR,                       /* 0x5B  0xFFB6   1   no   ivVcan0wkup   unused by PE */
+            UNASSIGNED_ISR,                       /* 0x5C  0xFFB8   1   no   ivVflash      unused by PE */
+            UNASSIGNED_ISR,                       /* 0x5D  0xFFBA   1   no   ivVeeprom     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x5E  0xFFBC   1   no   ivVspi2       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x5F  0xFFBE   1   no   ivVspi1       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x60  0xFFC0   1   no   ivViic0       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x61  0xFFC2   1   no   ivVReserved30 unused by PE */
+            UNASSIGNED_ISR,                       /* 0x62  0xFFC4   1   no   ivVcrgscm     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x63  0xFFC6   1   no   ivVcrgplllck  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x64  0xFFC8   1   no   ivVtimpabovf  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x65  0xFFCA   1   no   ivVtimmdcu    unused by PE */
+            UNASSIGNED_ISR,                       /* 0x66  0xFFCC   1   no   ivVporth      unused by PE */
+            UNASSIGNED_ISR,                       /* 0x67  0xFFCE   1   no   ivVportj      unused by PE */
+            UNASSIGNED_ISR,                       /* 0x68  0xFFD0   1   no   ivVatd1       unused by PE */
+            isrVatd0,                             /* 0x69  0xFFD2   1   no   ivVatd0       used by PE */
+            UNASSIGNED_ISR,                       /* 0x6A  0xFFD4   1   no   ivVsci1       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x6B  0xFFD6   1   no   ivVsci0       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x6C  0xFFD8   1   no   ivVspi0       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x6D  0xFFDA   1   no   ivVtimpaie    unused by PE */
+            UNASSIGNED_ISR,                       /* 0x6E  0xFFDC   1   no   ivVtimpaaovf  unused by PE */
+            UNASSIGNED_ISR,                       /* 0x6F  0xFFDE   1   no   ivVtimovf     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x70  0xFFE0   1   no   ivVtimch7     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x71  0xFFE2   1   no   ivVtimch6     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x72  0xFFE4   1   no   ivVtimch5     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x73  0xFFE6   1   no   ivVtimch4     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x74  0xFFE8   1   no   ivVtimch3     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x75  0xFFEA   1   no   ivVtimch2     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x76  0xFFEC   1   no   ivVtimch1     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x77  0xFFEE   1   no   ivVtimch0     unused by PE */
+            UNASSIGNED_ISR,                       /* 0x78  0xFFF0   1   no   ivVrti        unused by PE */
+            UNASSIGNED_ISR,                       /* 0x79  0xFFF2   1   no   ivVirq        unused by PE */
+            UNASSIGNED_ISR,                       /* 0x7A  0xFFF4   -   -    ivVxirq       unused by PE */
+            UNASSIGNED_ISR,                       /* 0x7B  0xFFF6   -   -    ivVswi        unused by PE */
+            UNASSIGNED_ISR                        /* 0x7C  0xFFF8   -   -    ivVtrap       unused by PE */
+};

@@ -1,0 +1,11 @@
+14-aug-2010 -  gursimran singh
+	* main.c, Introducing the servo_output(without limits bound) in UART output...
+	* main.c, Added code to set servo for steering 
+	* main.c Corrected logic for calculation of position
+
+16-aug-2010
+	* Changing the UART output data according to the new logger software made.
+	
+	
+18-aug-2010
+                    * Added the new compensation.h from the final code

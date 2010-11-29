@@ -1,0 +1,51 @@
+*	-	TODO
+X 	-	DONE
+
+13-aug-2010
+	x Take sensor data once more so that remaining issue with sensor 1 is resolved.	- not resolved
+	X Set crucially the servo limits in which the car is comfortable.	
+	X Calculate the min radius in which the car can take a turn, by setting the extreme limits.
+
+14-aug-2010
+	X To correct the logic of position calculation, in project2
+	X Add limit overflow algorithm to combat the overflow of iterm.
+	x Vedios of PID tuning of line follower on you tube.
+	x Study about Ni-Cd battery.
+	x assesment of the new data taken as observations.
+	x Interrupts for ATD conversion.	-	28-aug-2010
+	* Recalibration of the sensors and properly get the position data, errors, etc.
+	* Correct calculation of ATD conversion time of both 8bit and 16bit resolution.
+	x Read the sensor datasheet
+
+16-aug-2010
+	x Write  a program that can automatically log data in excel, so we can create graphs, find min, max..
+
+19-aug-2010
+	x email prof about the track details, so that we can make a similar track and test properly the car
+	* frequencyof MCU'
+	x Try to maximize the speed of algorithm at all costs.
+	x Make the data logger application log compensated values as well.. ******
+
+26-aug-2010
+	*  PLL clock to read from datasheet
+	* Sleep modes from datasheet
+	* eeprom or flash from datasheet
+	* compiler optimisation and generating compact code
+
+27-aug-2010
+	x To see if changing the Sample time of ADC has some effect in th ATD readings..
+
+31-aug-2010
+	* Study the pulse accumulator.
+	* Study the EEPROM to save the values of kp and ki.
+4-sep-2010
+	*WHY do we need PWM on both sides of the MOTOR?? 
+
+10-sep-2010
+	* Recompensation of sensors
+	* Tuning the kp and ki values.
+	* Use of shaft encoder to stablize the speed ... ********IMP********
+
+	* Removal is  of floating point and use of fixed point..
+	*
+	* 

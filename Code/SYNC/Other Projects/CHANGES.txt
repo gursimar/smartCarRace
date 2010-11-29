@@ -1,0 +1,9 @@
+28-aug-2010
+	* New ADC.h file
+	* New GLOBAL.c
+	* New main.c file	for PROJECT2.0
+	* New Interrupt compatible Project3.0
+	* New compensation.h		new compensation values. ..
+
+5-sep-2010
+	* TO SYNC THE bug FIXED (pr track deb) in compensation algorithm in pr 4.0 4.0deg 5.0

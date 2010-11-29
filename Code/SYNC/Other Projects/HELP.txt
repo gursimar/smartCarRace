@@ -1,0 +1,16 @@
+SYNC FOLDER
+This folder contains PROJECTS and DATA that is to be synced with the win xp in virtual box. 
+
+Please note the following points while SYNCING.
+	* Copy new changed projects to this the folder.
+	* In XP move all folders into a folder such as SYNC_backup
+	* 
+	* When starting, copy a fresh copy of SYNC from this folder and start working.
+	* 
+	* MODIDY the last modified date.
+	
+LAST MODIFIED on ::: 16-aug-2010
+
+
+:-))
+:->

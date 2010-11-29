@@ -1,0 +1,8 @@
+Data:2 < ADDXPR ONLY_ADD_IF_NEW "kp"
+Data:2 < ADDXPR ONLY_ADD_IF_NEW "ki"
+Data:2 < ADDXPR ONLY_ADD_IF_NEW ":main:position"
+Data:2 < ADDXPR ONLY_ADD_IF_NEW "kd"
+Data:2 < ADDXPR ONLY_ADD_IF_NEW "setpoint"
+Data:2 < ADDXPR ONLY_ADD_IF_NEW "delay_dc"
+Data:2 < ADDXPR ONLY_ADD_IF_NEW "dc_speed"
+Data:2 < ADDXPR ONLY_ADD_IF_NEW "speed_dc"

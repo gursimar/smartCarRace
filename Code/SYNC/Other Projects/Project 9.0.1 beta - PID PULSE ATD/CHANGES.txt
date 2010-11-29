@@ -1,0 +1,15 @@
+28-aug-2010
+          * New global.h      synchronize everywhere ..
+          * New adc.h
+          * new compensation.h          new compensation values..
+          
+         
+29-aug-2010
+          * new algo for compensation that take care of proper rounding the values..
+
+5-sep-2010
+	* SYNCED with the bug fix in pr data logger - DONE
+
+9-sep-2010
+	* Added code for EEPROM data val
+	* Changes in files global.h , eeprom.h , pid.h, main.c (kp,ki and eeprom)
