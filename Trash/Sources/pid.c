@@ -1,0 +1,65 @@
+// pid.c
+
+#include "pid.h"
+#include "sensorAnalyser.h"
+#include "mc9s12xdt512.h"
+#include "motor.h"
+#include "global.h"
+
+float Kp,Ki,Kp1;
+int error,p_ctrl,i_ctrl,dc_error,p_ctrl1;
+int output,output1;
+int error1;
+
+//***************************************************************************************************
+
+
+// Name: PID 
+// Function: Performs the desired PI control to run motor
+// Input: None
+// Output: None
+
+int PID(void){
+
+            Kp=0.11;
+            Ki=0.0003;
+
+            error = Read_Sensor_Values();
+    
+            p_ctrl=(int)(error*Kp);
+            i_ctrl=(int)((error + error1) * Ki) ;
+            error1=error+error1;
+            if (error1>32000){
+              error1=32000 ;
+            }
+            if (error1<-32000){
+              error1=-32000 ;
+            }
+            
+            output= 1535 - p_ctrl;
+            if (output>1800) {
+              output = 1800;
+            }
+            if (output<1270){
+              output = 1270;
+            }
+            return output;
+        }
+            
+ 
+ 
+             
+ //***************************************************************************************************
+
+
+// Name: RUN 
+// Function: Run the motor according to PI control
+// Input: None
+// Output: None  
+
+void run(void){
+
+            Servo_Motor();
+            DC_Motor();
+}
+
