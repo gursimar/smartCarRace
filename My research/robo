@@ -1,0 +1,26 @@
+http://www.chibots.org/index.php?q=node/339
+
+
+The issue you are raising is the Holy Grail of a lot of robotics competitions. How do I go faster but not lose the line. This is one area where things get more interesting, trickier and frustrating the further you go. Atleast that has been the experience of myself and the students I mentor.
+
+My understanding is, the standard lego light sensors can take a reading every 3ms. ie about 333 times/sec. This is incredibly fast and is probably not the issue that is preventing you from having success in making your line follower go faster without losing the line. You can check it out yourself using the datalog function in RobotC or Robolab 2.9 if you are familiar or interested in experimenting with these parts of the program.
+
+The problem you are likely to be experiencing is that the robot (either through physical design or the programming logic) is unable to respond in time and winds up on the wrong side of the line because it is not agile or responsive enough. Hence the logic of the program is telling it the line is on the left when it is on the right because it couldn't turn quick enough. The smaller the turning circle the better.
+
+The issues you are grappling with is likely how do I make the steering more responsive and start to predict where the line is. Most line following robots aren't so much following the line as oscillating back and forth over the line. What you are trying to reduce the intensity (amount of turn) of each oscillation so that you spend more time moving in a forward direction than turning left or right.
+
+It is a frustrating pursuit when you see videos of people with robots flying along at great speed that appear to be following the line intuitively. I suspect these robots are just so responsive and their oscillations are so small that they appear to drive straight. (To anyone with greater knowledge or expertise; please feel free to correct any misconceptions I may have if I'm wrong.)
+
+My understanding is that at the top of the heirarchy are line following programs that use a PID algorithm. I don't quite understand this except that I believe it is using predictive logic to predict the curve of the line and adjusts the approach of the robot accordingly.
+
+I'd love it if someone would stand on my shoulders and shed some ligh t on the mysteries of a PID algorithm for line following. Perhaps even a sample 8) to decode
+
+
+
+OUR STRATIGY SHOULD BE THAT WE WILL DECRASE THE PROPOTIONAL BAND AS WE WILL BE ABLE TO IMPLEMENT PID....  tHIS WILL MAKE THE CONTROL MORE RESPONSIVE ie INCREASE THE RESOLUTION SO THAT IN THE REQUIRED PB EVEN SMALL CHANGES CAN BE MEASURED AND CORRECTED .... HURRAH..
+
+
+
+
+
+Line Following Sensor Arrangement Algorithm

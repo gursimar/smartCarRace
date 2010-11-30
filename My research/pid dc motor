@@ -1,0 +1,525 @@
+--- In 6...@yahoogroups.com, "waks_up"  wrote:
+>
+> Hi,
+>
+> Im doing a dc motor PID controller. Im using Nanocore12DX. I have an
+> enocoder. It is a quadrature encoder. I have generated PWM signal
+from
+> HC12 to drive the motor. The question I wanted to ask is how do i
+> implement the PID controller in Codewarrior?
+>
+> Regards,
+> Chai
+>
+
+I built a PID controller to maintain a constant tempreature in a
+surface of a bulb. And I used 9S12E128 series and used the PMF
+subsystem(Like PWM) The tempreature was measured using a LM35
+temprature sensor which was fixed to the ADC of the chip.
+
+There is a excellent document called "PID without PHD" in the
+internet. You can download and check it. Before you read the code
+please go through the document.
+
+There are 4 files
+Code- main.c file
+
+#include /* common defines and macros */
+#include /* derivative information */
+#include "LCD.h"
+#include "SCI.h"
+void initAD(void);
+void delay20us(unsigned int times);
+void initOC4_100ms(void);
+unsigned int readAN(unsigned char pin);
+void init_PMF(void);
+
+unsigned char timeout(void);
+unsigned char displayTime(void);
+unsigned char controlTime(void);
+void docontrol(void);
+unsigned char checkInput(void);
+void handleInput(void);
+void displayTemp(void);
+
+unsigned char dataArrived=0;
+unsigned char count=0;
+char data0=0;
+unsigned char digit=0;
+char setPoint[2];
+unsigned int SP=0;
+unsigned int PV=0;
+interrupt void SCI0_ISR(void){
+data0=read_SCI0();
+dataArrived=1;
+}
+void main(void) {
+/* put your own code here */
+EnableInterrupts;
+initAD();
+InitLCD();
+init_PMF();
+initOC4_100ms();
+initSCI0();
+for(;;) {
+
+if(checkInput()) {
+handleInput();
+}
+if(timeout()) {
+if(displayTime()) {
+displayTemp();
+}
+if(controlTime()) {
+docontrol();
+}
+}
+} /* wait forever */
+/* please make sure that you never leave this function */
+}
+
+void initOC4_100ms(void) {
+
+TIM0_TSCR2 = 0x06; //prescaler 128
+TIM0_TIOS = 0x10; //enable OC4
+//TIM0_TIE = 0x10; //enable OC4 interupt
+TIM0_TC4 = TIM0_TCNT+12500; //time duration for 100ms
+}
+
+unsigned char timeout(void) {
+if((TIM0_TFLG1&0x10) == 0x10) {
+TIM0_TC4 +=12500;
+count++;
+return 1;
+}
+else
+return 0;
+}
+
+unsigned char displayTime(void) {
+
+if(count%10 == 0)
+return 1;
+else
+return 0;
+}
+
+void displayTemp(void) {
+unsigned int ret;
+unsigned char BCDarray[4];
+char msg[]="SP: ";
+
+ret=readAN(0x08);
+data2LCD4(0x01,0); //clear screen, move cursor home
+delayxms(10);
+intToBCD(ret,BCDarray,2);
+convertASCII(BCDarray,2);
+BCDarray[2]='C';
+BCDarray[3]=' ';
+sendMSG4(BCDarray,4);
+sendMSG4ptr(msg);
+intToBCD(SP,BCDarray,2);
+convertASCII(BCDarray,2);
+sendMSG4(BCDarray,2);
+}
+
+unsigned char controlTime(void) {
+return 1;
+}
+
+void docontrol(void)
+{
+unsigned char pGain=4,iGain=3,dGain=3,iMax=50,iMin=0;
+int pTerm=0,iTerm=0,dTerm=0;
+unsigned char a=0,control=0;
+char error=0;
+static char iState=0,dState=0;
+struct pair{
+unsigned char high;
+unsigned char low;
+};
+union parts{
+int controlTemp;
+struct pair x;
+};
+
+union parts cValue,pValue;
+
+PV=readAN(0x08);
+error=SP-PV;
+pValue.controlTemp=PV;
+pTerm=pGain*error;
+
+iState+=error;
+
+if(iState > iMax)
+iState=iMax;
+else if(iState < iMin)
+iState=iMin;
+
+iTerm=iGain*iState;
+dTerm=dGain*(dState-pValue.x.low);
+dState=pValue.x.low;
+cValue.controlTemp=pTerm+iTerm+dTerm;
+
+if(cValue.controlTemp > 250)
+control=250;
+else if(cValue.controlTemp <= 0)
+control=10;
+else
+control=cValue.x.low;
+
+PMFVAL4 = control;
+a=PMFENCC;
+PMFENCC |= 0x02;
+}
+unsigned char checkInput(void) {
+if(dataArrived == 1) {
+dataArrived = 0;
+return 1;
+}
+else
+return 0;
+}
+
+void handleInput(void) {
+char newline[]={13,10};
+char msg1[]="The new SP is: ";
+char msg2[]="The temp is lower than 30";
+char msg3[]="The temp is higher than 60";
+unsigned char SPtemp;
+digit++;
+if(digit == 1) {
+write_SCI0(data0);
+data0=ASCII_BCD(data0);
+setPoint[0]=data0;
+}
+else if(digit == 2){
+write_SCI0(data0);
+data0=ASCII_BCD(data0);
+setPoint[1]=data0;
+SPtemp=BCD_int(setPoint);
+if(SPtemp > 80) {
+write_string(newline,2);
+sendMSG4SCI0(msg3);
+}
+else if(SPtemp < 30) {
+write_string(newline,2);
+sendMSG4SCI0(msg2);
+}
+else {
+setPoint[0]|=0x30;
+setPoint[1]|=0x30;
+write_string(newline,2);
+sendMSG4SCI0(msg1);
+write_string(setPoint,2);
+write_string(newline,2);
+SP=SPtemp;
+}
+digit=0;
+}
+}
+
+void init_PMF(void)
+{
+unsigned char a;
+PMFCFG0 = 0x64; /*PWM4 is independent and edge aligned multiple
+timer generator*/
+PMFCFG1 = 0x00; /*Postive polarity to all PWM pins*/
+PMFCFG2 = ~0x10; //unmask PWM4
+PMFFQCC = 0x06; // frequency and bus select
+PMFDTMC = 150; // dead time
+PMFVAL4 = 10; //duty cyle
+PMFMODC = 255; //total period
+a=PMFENCC; //read LDOK
+PMFENCC = 0x02; //set LDOK
+PMFENCC |= 0x80; //enable timer generator
+PMFFQCC |= 0x01; //clear flag
+PMFCFG0 |= 0x80; //set write protect
+
+}
+void delay20us(unsigned int times) {
+unsigned int a;
+
+TIM0_TSCR1 = 0x90; //enable TCNT and fast flag clearing
+TIM0_TSCR2 = 0x01; //prescaler 2
+TIM0_TIOS = 0x10; //enable OC4
+TIM0_TC4 = TIM0_TCNT+40; //TC4
+for(a=0;a
+
+while(!(TIM0_TFLG1&0x10));
+TIM0_TC4 +=40;
+}
+TIM0_TIOS &= ~0x10; //disbale OC4
+
+}
+
+void initAD(void) {
+ATDCTL2=0x80; /*enable AD*/
+delay20us(1);
+ATDCTL3=0x00; /*16 conversion*/
+}
+
+unsigned int readAN(unsigned char pin) {
+unsigned int ret;
+unsigned char pindef=0x80;
+pindef |=pin;
+ATDCTL5=pindef; /*enable pin 2 10bit unsigned left justified*/
+while(!(ATDSTAT0&0x80));
+ret=ATDDR0;
+ret+=ATDDR1;
+ret+=ATDDR2;
+ret+=ATDDR3;
+ret+=ATDDR4;
+ret+=ATDDR5;
+ret+=ATDDR6;
+ret+=ATDDR7;
+ret+=ATDDR8;
+ret+=ATDDR9;
+ret+=ATDDR10;
+ret+=ATDDR11;
+ret+=ATDDR12;
+ret+=ATDDR13;
+ret+=ATDDR14;
+ret+=ATDDR15;
+
+ret>>=5;
+return ret;
+}
+
+LCD.h
+
+#include /* common defines and macros */
+#include /* derivative information */
+
+#define LCD_CNT PTP
+#define LCD_DATA PTS
+#define LCD_DIRC DDRP
+#define LCD_DIRD DDRS
+#define LCD_E 0x02
+#define LCD_RS 0x04
+
+void InitLCD(void);
+void data2LCD4(char data,unsigned char type);
+void delayxms(signed char time);
+void sendMSG4ptr(char *ptr);
+void sendMSG4(unsigned char array[],char size);
+void intToBCD(unsigned int intnumber,unsigned char BCDarray[],signed
+char size);
+void convertASCII(unsigned char array[],signed char size);
+
+void InitLCD(void) {
+
+LCD_DIRC=0x07; //LCD control port is output
+LCD_DIRD=0xf0; //LCD data port is output
+delayxms(10);
+data2LCD4(0x28,0);
+data2LCD4(0x0f,0); //turn on display cursor and blinking
+data2LCD4(0x01,0); //clear screen, move cursor home
+data2LCD4(0x06,0); //move cusor right
+delayxms(1);
+}
+
+void data2LCD4(char data,unsigned char type) {
+char temp;
+temp=data; //save the command
+data=data&0xf0; //send MSB first
+if(type == 0)
+LCD_CNT&=(~LCD_RS); //specify that it's a instruction
+else
+LCD_CNT|=LCD_RS; //specify that it's data
+LCD_CNT|=LCD_E; //enable pin high
+LCD_DATA=data; //send data
+asm(nop);
+asm(nop);
+asm(nop);
+LCD_CNT&=(~LCD_E); //Bring down the enable pin
+data=temp&0x0f; //get LSB
+LCD_CNT|=LCD_E; //Enable is high
+data<<=4;
+LCD_DATA=data;
+asm(nop);
+asm(nop);
+asm(nop);
+LCD_CNT&=(~LCD_E);
+delayxms(1);
+}
+
+void sendMSG4ptr(char *ptr) {
+while(*ptr){
+data2LCD4(*ptr,1);
+ptr++;
+delayxms(10);
+}
+}
+
+void sendMSG4(unsigned char array[],char size) {
+char a=0;
+for(a=0;a
+data2LCD4(array[a],1);
+delayxms(10);
+}
+}
+
+void delayxms(signed char time) {
+unsigned int a=0;
+signed char b;
+b=time;
+for(;b>=0;b--) {
+for(a=0;a<1000;a++) {
+}
+}
+}
+
+void intToBCD(unsigned int intnumber,unsigned char BCDarray[],signed
+char size) {
+signed char a=size;
+unsigned char temp=0;
+for(a=size-1;a>=0;a--) {
+temp=intnumber%10;
+BCDarray[a]=temp;
+intnumber=intnumber/10;
+}
+}
+
+void convertASCII(unsigned char array[],signed char size){
+signed char a=size;
+for(a=size-1;a>=0;a--){
+array[a]|=0x30;
+if(array[a] > 0x39)
+array[a]+=7;
+}
+}
+
+SCI.h
+
+#include /* common defines and macros */
+#include /* derivative information */
+void initSCI0(void) {
+char data;
+SCI0BDH=0x00;
+//SCI0BDL=0x9c; /*set baud rate to 9600 ar 24Mhz*/
+//SCI0BDL=0x68; /*set baud rate to 9600 at 16mhz*/
+SCI0BDL=26; /*set baud rate to 9600 at 4 Mhz*/
+SCI0CR2=0x2c; /*enable TX RX buffers enable RX interupt*/
+data=SCI0DRL;
+}
+void write_SCI0(char data){
+while(!(SCI0SR1&0x80)); //check whether the TDRE is set
+SCI0DRL=data;
+}
+
+char read_SCI0(void){
+while(!(SCI0SR1&0x20)); //check whether data arrived
+return SCI0DRL;
+}
+
+void write_string(char BUFFER[],char length) {
+char a=0;
+while(a
+write_SCI0(BUFFER[a]);
+a++;
+}
+}
+
+void sendMSG4SCI0(char *ptr) {
+while(*ptr){
+write_SCI0(*ptr);
+ptr++;
+}
+}
+
+char ASCII_BCD(char ASCII){
+char letter=ASCII;
+letter&=0x0f;
+return letter;
+}
+
+unsigned char BCD_int(char BCD[]){
+unsigned char a;
+a=BCD[0]*10;
+a=a+BCD[1];
+return a;
+}
+
+isr_vectors.c file
+
+extern void near _Startup(void); /* Startup routine */
+extern void near SCI0_ISR(void);
+
+#pragma CODE_SEG __NEAR_SEG NON_BANKED /* Interrupt section for this
+module. Placement will be in NON_BANKED area. */
+__interrupt void UnimplementedISR(void)
+{
+/* Unimplemented ISRs trap.*/
+asm BGND;
+}
+
+typedef void (*near tIsrFunc)(void);
+const tIsrFunc _vect[] @0xFF80 = { /* Interrupt table */
+UnimplementedISR, /* vector 63 */
+UnimplementedISR, /* vector 62 */
+UnimplementedISR, /* vector 61 */
+UnimplementedISR, /* vector 60 */
+UnimplementedISR, /* vector 59 */
+UnimplementedISR, /* vector 58 */
+UnimplementedISR, /* vector 57 */
+UnimplementedISR, /* vector 56 */
+UnimplementedISR, /* vector 55 */
+UnimplementedISR, /* vector 54 */
+UnimplementedISR, /* vector 53 */
+UnimplementedISR, /* vector 52 */
+UnimplementedISR, /* vector 51 */
+UnimplementedISR, /* vector 50 */
+UnimplementedISR, /* vector 49 */
+UnimplementedISR, /* vector 48 */
+UnimplementedISR, /* vector 47 */
+UnimplementedISR, /* vector 46 */
+UnimplementedISR, /* vector 45 */
+UnimplementedISR, /* vector 44 */
+UnimplementedISR, /* vector 43 */
+UnimplementedISR, /* vector 42 */
+UnimplementedISR, /* vector 41 */
+UnimplementedISR, /* vector 40 */
+UnimplementedISR, /* vector 39 */
+UnimplementedISR, /* vector 38 */
+UnimplementedISR, /* vector 37 */
+UnimplementedISR, /* vector 36 */
+UnimplementedISR, /* vector 35 */
+UnimplementedISR, /* vector 34 */
+UnimplementedISR, /* vector 33 */
+UnimplementedISR, /* vector 32 */
+UnimplementedISR, /* vector 31 */
+UnimplementedISR, /* vector 30 */
+UnimplementedISR, /* vector 29 */
+UnimplementedISR, /* vector 28 */
+UnimplementedISR, /* vector 27 */
+UnimplementedISR, /* vector 26 */
+UnimplementedISR, /* vector 25 */
+UnimplementedISR, /* vector 24 */
+UnimplementedISR, /* vector 23 */
+UnimplementedISR, /* vector 22 */
+UnimplementedISR, /* vector 21 */
+SCI0_ISR, /* vector 20 */
+UnimplementedISR, /* vector 19 */
+UnimplementedISR, /* vector 18 */
+UnimplementedISR, /* vector 17 */
+UnimplementedISR, /* vector 16 */
+UnimplementedISR, /* vector 15 */
+UnimplementedISR, /* vector 14 */
+UnimplementedISR, /* vector 13 */
+UnimplementedISR, /* vector 12 */
+UnimplementedISR, /* vector 11 */
+UnimplementedISR, /* vector 10 */
+UnimplementedISR, /* vector 09 */
+UnimplementedISR, /* vector 08 */
+UnimplementedISR, /* vector 07 */
+UnimplementedISR, /* vector 06 */
+UnimplementedISR, /* vector 05 */
+UnimplementedISR, /* vector 04 */
+UnimplementedISR, /* vector 03 */
+UnimplementedISR, /* vector 02 */
+UnimplementedISR, /* vector 01 */
+_Startup /* Reset vector */
+};
+

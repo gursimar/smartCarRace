@@ -1,0 +1,44 @@
+
+Posts: 1
+Registered: 2010-01-12 .Re: Codewarrio?r 6.2 on a Widows 7 system.Options 
+Mark as NewBookmarkSubscribeHighlightPrintEmail to a FriendReport Inappropriate Content...2010-01-12 01:23 AM 
+
+I HAVE THE SOLUTION !!!!!
+
+I have CW 6.1 working on Windows7 x64 bit version.
+
+Just do the following steps:
+
+ 
+
+1) Install the p&e drivers version 10 from:
+
+http://www.pemicro.com/blog/post.cfm/p-e-hardware-?interface-drivers-version-10-windows-7
+
+This includes drivers for all windows versions and windows 7 x86 and x64 too !!!
+
+2) Copy from win32 intalled CodeWarrior (like xp 32bits) from Program Files\Frescale\CodeWarrior for Microcontrollers V6.1 to the c:\Program Files(x86)\Freescale\CodeWarrior for Microcontrollers V6.1
+
+3) Now, this step is the MOST IMPORTANT:
+
+    Look at the file "Mwregsvr.exe" in the c:\Program Files(x86)\Freescale\CodeWarrior for Microcontrollers V6.1\bin and click the right button on this file, then click in properties.
+
+    Now, in compatibility tab,set the compatibility in WindowsXp (sp2) and set the checkbox
+
+    to run in administrator mode.
+
+    Now, click in aply button then click in OK(accept) button.
+
+4) In the same folder, run once the file regservers.bat
+
+    When the windows ask for the permisions, just click yes everytime.
+
+ 
+
+Now, the CW is running on Windows7 x64 !!!!
+
+ 
+
+Jus try with CW 6.2 and 6.3 and tell me !!!
+
+ 

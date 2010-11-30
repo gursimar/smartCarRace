@@ -1,0 +1,5 @@
+The line position is compeared to the center value to be tracked, the position error is processed with Proportional/Integral/Diffence filters to generate steering command. The line folloing robot tracks the line in PID control that the most popular argolithm for servo control.
+
+The proportional term is the commom process in the servo system. It is only a gain amplifire without time dependent process. The differencial term is applied in order to improve the responce to disturbance, and it also compensate phase lag at the controled object. The D term will be required in most case to stabilize tracking motion. The I term is not used in this project from following resons. The I term that boosts DC gain is applied in order to remove left offset error, however, it often decrease servo stability due to its phase lag. The line following operation can ignore such tracking offset so that the I term is not required.
+
+When any line sensing error has occured for a time due to getting out of line or end of line, the motors are stopped and the microcontroller enters sleep state of zero power consumption.
